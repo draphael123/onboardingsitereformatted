@@ -8,7 +8,9 @@ import {
   BookOpen, 
   Shield, 
   Clock,
-  Sparkles
+  Sparkles,
+  Syringe,
+  Heart
 } from "lucide-react"
 
 const features = [
@@ -41,6 +43,21 @@ const roles = [
   { name: "Medical Assistants", abbr: "MA", color: "bg-amber-500" },
 ]
 
+const programs = [
+  {
+    icon: Syringe,
+    title: "Testosterone Replacement Therapy (TRT)",
+    description: "Tailored for men seeking to restore testosterone levels. Our TRT program enhances muscle mass, reduces body fat, boosts energy, and improves libido.",
+    color: "bg-blue-500",
+  },
+  {
+    icon: Heart,
+    title: "Hormone Replacement Therapy (HRT)",
+    description: "Designed for women experiencing peri/menopause symptoms. Our HRT program alleviates brain fog, hot flashes, and low energy with customized hormone therapy.",
+    color: "bg-rose-500",
+  },
+]
+
 export default function HomePage() {
   return (
     <div className="flex flex-col">
@@ -50,16 +67,15 @@ export default function HomePage() {
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 animate-fade-in">
               <Sparkles className="h-4 w-4" />
-              Welcome to the Team
+              Welcome to Fountain
             </div>
             <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 opacity-0 animate-fade-in-up">
               Your Onboarding Journey{" "}
               <span className="text-primary">Starts Here</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground mb-8 opacity-0 animate-fade-in-up animate-delay-100">
-              Fountain Vitality&apos;s comprehensive onboarding portal helps you get up to speed 
-              quickly with personalized training checklists, essential resources, and 
-              progress tracking.
+              Fountain is a leading provider of concierge online TRT and HRT treatments. 
+              Join our team and help us deliver expert care directly to our members&apos; doorsteps.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-in-up animate-delay-200">
               <Button size="lg" asChild className="group">
@@ -76,12 +92,45 @@ export default function HomePage() {
         </div>
         
         {/* Decorative gradient orbs */}
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/15 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-teal-500/15 rounded-full blur-3xl" />
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl" />
       </section>
 
-      {/* Roles Section */}
+      {/* Our Programs Section */}
       <section className="py-16 md:py-24 bg-muted/30">
+        <div className="container px-4 md:px-6">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
+              Our Programs
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Fountain offers specialized hormone therapy treatments delivered with 
+              convenience and personalized care.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {programs.map((program) => (
+              <Card 
+                key={program.title} 
+                className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              >
+                <CardContent className="p-0">
+                  <div className={`${program.color} w-14 h-14 rounded-full flex items-center justify-center text-white mb-4`}>
+                    <program.icon className="h-7 w-7" />
+                  </div>
+                  <h3 className="font-semibold text-xl mb-3">{program.title}</h3>
+                  <p className="text-muted-foreground">
+                    {program.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Roles Section */}
+      <section className="py-16 md:py-24">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
@@ -110,7 +159,7 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 bg-muted/30">
         <div className="container px-4 md:px-6">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
@@ -153,7 +202,7 @@ export default function HomePage() {
           </h2>
           <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8">
             Sign in to access your personalized onboarding checklist and start 
-            your journey with Fountain Vitality.
+            your journey with Fountain. Join over 7,000+ satisfied members we serve.
           </p>
           <Button size="lg" variant="secondary" asChild>
             <Link href="/login">

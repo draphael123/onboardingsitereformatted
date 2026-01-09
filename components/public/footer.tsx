@@ -5,6 +5,7 @@ import { FountainLogo } from "@/components/ui/fountain-logo"
 const footerLinks = {
   company: [
     { href: "/about", label: "About Us" },
+    { href: "/programs", label: "Programs" },
     { href: "/contact", label: "Contact" },
     { href: "/faqs", label: "FAQs" },
   ],
@@ -25,21 +26,17 @@ export function PublicFooter() {
               <FountainLogo textClassName="font-display" />
             </Link>
             <p className="text-muted-foreground max-w-sm mb-6">
-              Empowering healthcare professionals with comprehensive onboarding 
-              and continuous learning opportunities.
+              A leading provider of concierge online TRT and HRT treatments, 
+              delivering expert care directly to your doorstep.
             </p>
             <div className="space-y-2 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4" />
-                <span>support@fountainvitality.com</span>
+                <span>support@fountain.net</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4" />
-                <span>(555) 123-4567</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <MapPin className="h-4 w-4" />
-                <span>123 Healthcare Blvd, Medical City, MC 12345</span>
+                <span>24/7 Concierge Support</span>
               </div>
             </div>
           </div>
@@ -81,7 +78,7 @@ export function PublicFooter() {
 
         <div className="mt-12 pt-8 border-t flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Fountain Vitality. All rights reserved.
+            © {new Date().getFullYear()} Fountain. All rights reserved.
           </p>
           <div className="flex gap-6 text-sm text-muted-foreground">
             <Link href="#" className="hover:text-foreground transition-colors">

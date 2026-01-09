@@ -9,8 +9,8 @@ import {
 import { HelpCircle } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "FAQs | Fountain Vitality",
-  description: "Frequently asked questions about Fountain Vitality's onboarding process and services.",
+  title: "FAQs | Fountain",
+  description: "Frequently asked questions about Fountain's TRT, HRT programs, and employee onboarding.",
 }
 
 async function getFAQs() {
@@ -24,38 +24,38 @@ async function getFAQs() {
     return [
       {
         id: "1",
-        question: "How long does the onboarding process take?",
-        answer: "The onboarding process typically takes 2-4 weeks depending on your role. Your personalized checklist will show estimated completion times for each section.",
+        question: "What services does Fountain offer?",
+        answer: "Fountain is a leading provider of concierge online Testosterone Replacement Therapy (TRT) and Hormone Replacement Therapy (HRT). We deliver expert care and medications directly to our members' doorsteps with 24/7 support.",
         order: 0,
       },
       {
         id: "2",
-        question: "What should I bring on my first day?",
-        answer: "Please bring two forms of identification, any relevant certifications or licenses, and a positive attitude! Your checklist will have specific requirements for your role.",
+        question: "How long does the employee onboarding process take?",
+        answer: "The onboarding process typically takes 2-4 weeks depending on your role (NP, RN, MA, or CS). Your personalized checklist will show estimated completion times for each section and track your progress.",
         order: 1,
       },
       {
         id: "3",
-        question: "How do I access my onboarding checklist?",
-        answer: "After your account is created by HR, you can sign in to the portal using your email and temporary password. You'll be prompted to change your password on first login.",
+        question: "What roles are you hiring for?",
+        answer: "We hire Nurse Practitioners (NPs), Registered Nurses (RNs), Medical Assistants (MAs), and Customer Service (CS) specialists. Each role has a customized onboarding path tailored to their responsibilities.",
         order: 2,
       },
       {
         id: "4",
-        question: "Who do I contact if I have questions?",
-        answer: "You can reach out to our HR team at hr@fountainvitality.com or use the contact form on our Contact page. Your direct supervisor will also be introduced during orientation.",
+        question: "How do I access my onboarding checklist?",
+        answer: "After your account is created by HR, you can sign in to the portal using your email and temporary password. You'll be prompted to change your password on first login and can immediately begin your onboarding tasks.",
         order: 3,
       },
       {
         id: "5",
         question: "Can I complete onboarding tasks remotely?",
-        answer: "Many onboarding tasks can be completed remotely, such as document review and online training modules. However, some tasks like badge pickup and in-person orientation require on-site attendance.",
+        answer: "Yes! Fountain is a telehealth company, so most onboarding tasks can be completed remotely. This includes document review, compliance training, and system access setup. Some role-specific training may require video calls with team leads.",
         order: 4,
       },
       {
         id: "6",
-        question: "What if I need more time to complete a task?",
-        answer: "If you need additional time for any task, please contact your supervisor or HR. We understand that everyone learns at their own pace and are happy to accommodate reasonable requests.",
+        question: "Who do I contact if I have questions during onboarding?",
+        answer: "You can reach out to our HR team at support@fountain.net or use the contact form on our Contact page. Our team provides 24/7 support, and your direct supervisor will also be introduced during orientation.",
         order: 5,
       },
     ]
