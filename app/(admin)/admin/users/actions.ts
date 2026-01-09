@@ -4,7 +4,9 @@ import { revalidatePath } from "next/cache"
 import { db } from "@/lib/db"
 import { requireAdmin } from "@/lib/auth"
 import bcrypt from "bcryptjs"
-import type { Role } from "@prisma/client"
+import { sendAccountApprovedEmail, sendWelcomeEmail } from "@/lib/email"
+import { cloneTemplateToUser } from "@/lib/checklist"
+import type { Role, UserStatus } from "@prisma/client"
 
 interface CreateUserInput {
   name: string
@@ -40,7 +42,18 @@ export async function createUser(input: CreateUserInput) {
         email: input.email.toLowerCase(),
         passwordHash,
         role: input.role,
+        status: "APPROVED", // Admin-created users are auto-approved
       },
+    })
+
+    // Clone checklist from template
+    await cloneTemplateToUser(user.id, user.role)
+
+    // Send welcome email
+    await sendWelcomeEmail({
+      to: user.email,
+      name: user.name || "User",
+      role: user.role,
     })
 
     revalidatePath("/admin/users")
@@ -125,3 +138,110 @@ export async function resetPassword(userId: string) {
   }
 }
 
+export async function approveUser(userId: string) {
+  try {
+    await requireAdmin()
+
+    const user = await db.user.update({
+      where: { id: userId },
+      data: { status: "APPROVED" },
+    })
+
+    // Clone checklist from template if user doesn't have one
+    const existingChecklist = await db.userChecklist.findUnique({
+      where: { userId },
+    })
+
+    if (!existingChecklist) {
+      await cloneTemplateToUser(userId, user.role)
+    }
+
+    // Send approval email
+    await sendAccountApprovedEmail({
+      to: user.email,
+      name: user.name || "User",
+    })
+
+    // Create notification
+    await db.notification.create({
+      data: {
+        userId,
+        type: "ACCOUNT_APPROVED",
+        title: "Account Approved!",
+        message: "Your account has been approved. You can now access your onboarding portal.",
+        link: "/app",
+      },
+    })
+
+    revalidatePath("/admin/users")
+
+    return { success: true }
+  } catch (error) {
+    console.error("Error approving user:", error)
+    return { success: false, error: "Failed to approve user" }
+  }
+}
+
+export async function rejectUser(userId: string) {
+  try {
+    await requireAdmin()
+
+    await db.user.update({
+      where: { id: userId },
+      data: { status: "REJECTED" },
+    })
+
+    revalidatePath("/admin/users")
+
+    return { success: true }
+  } catch (error) {
+    console.error("Error rejecting user:", error)
+    return { success: false, error: "Failed to reject user" }
+  }
+}
+
+export async function updateUserStatus(userId: string, status: UserStatus) {
+  try {
+    await requireAdmin()
+
+    const user = await db.user.update({
+      where: { id: userId },
+      data: { status },
+    })
+
+    if (status === "APPROVED") {
+      // Clone checklist if needed
+      const existingChecklist = await db.userChecklist.findUnique({
+        where: { userId },
+      })
+
+      if (!existingChecklist) {
+        await cloneTemplateToUser(userId, user.role)
+      }
+
+      // Send approval email
+      await sendAccountApprovedEmail({
+        to: user.email,
+        name: user.name || "User",
+      })
+
+      // Create notification
+      await db.notification.create({
+        data: {
+          userId,
+          type: "ACCOUNT_APPROVED",
+          title: "Account Approved!",
+          message: "Your account has been approved. You can now access your onboarding portal.",
+          link: "/app",
+        },
+      })
+    }
+
+    revalidatePath("/admin/users")
+
+    return { success: true }
+  } catch (error) {
+    console.error("Error updating user status:", error)
+    return { success: false, error: "Failed to update user status" }
+  }
+}

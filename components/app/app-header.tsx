@@ -15,16 +15,30 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { FountainLogo } from "@/components/ui/fountain-logo"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
+import { SearchCommand } from "@/components/ui/search-command"
+import { NotificationsDropdown } from "@/components/app/notifications-dropdown"
 import { 
   LayoutDashboard, 
   CheckSquare, 
   LogOut,
   Settings,
   Menu,
-  X
+  X,
+  User
 } from "lucide-react"
 import { useState } from "react"
-import type { Role } from "@prisma/client"
+import type { Role, NotificationType } from "@prisma/client"
+
+interface Notification {
+  id: string
+  type: NotificationType
+  title: string
+  message: string
+  read: boolean
+  link: string | null
+  createdAt: Date
+}
 
 interface AppHeaderProps {
   user: {
@@ -32,14 +46,17 @@ interface AppHeaderProps {
     email?: string | null
     role: Role
   }
+  notifications?: Notification[]
+  unreadCount?: number
 }
 
 const navItems = [
   { href: "/app", label: "Dashboard", icon: LayoutDashboard },
   { href: "/app/checklist", label: "Checklist", icon: CheckSquare },
+  { href: "/app/settings", label: "Settings", icon: Settings },
 ]
 
-export function AppHeader({ user }: AppHeaderProps) {
+export function AppHeader({ user, notifications = [], unreadCount = 0 }: AppHeaderProps) {
   const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -79,6 +96,20 @@ export function AppHeader({ user }: AppHeaderProps) {
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Search */}
+          <div className="hidden md:flex">
+            <SearchCommand isAuthenticated isAdmin={user.role === "ADMIN"} />
+          </div>
+
+          {/* Notifications */}
+          <NotificationsDropdown
+            initialNotifications={notifications}
+            initialUnreadCount={unreadCount}
+          />
+
+          {/* Theme Toggle */}
+          <ThemeToggle variant="toggle" />
+
           {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -103,6 +134,12 @@ export function AppHeader({ user }: AppHeaderProps) {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuItem asChild>
+                <Link href="/app/settings" className="w-full cursor-pointer">
+                  <User className="mr-2 h-4 w-4" />
+                  Profile Settings
+                </Link>
+              </DropdownMenuItem>
               {user.role === "ADMIN" && (
                 <>
                   <DropdownMenuItem asChild>
@@ -111,9 +148,9 @@ export function AppHeader({ user }: AppHeaderProps) {
                       Admin Dashboard
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator />
                 </>
               )}
+              <DropdownMenuSeparator />
               <DropdownMenuItem
                 className="cursor-pointer text-destructive focus:text-destructive"
                 onClick={() => signOut({ callbackUrl: "/" })}
@@ -138,30 +175,61 @@ export function AppHeader({ user }: AppHeaderProps) {
       {/* Mobile Navigation */}
       <div
         className={cn(
-          "md:hidden absolute top-full left-0 right-0 bg-background border-b shadow-lg transition-all duration-300 ease-out",
-          isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
+          "md:hidden fixed inset-0 top-16 bg-background/98 backdrop-blur-sm z-40 transition-all duration-300 ease-out",
+          isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
         )}
       >
-        <nav className="container flex flex-col py-4 px-4 space-y-1">
-          {navItems.map((item) => (
+        <nav className="container flex flex-col py-6 px-4 space-y-2">
+          {navItems.map((item, index) => (
             <Link
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-2 px-4 py-3 text-sm font-medium rounded-md transition-colors",
+                "flex items-center gap-3 px-4 py-4 text-lg font-medium rounded-lg transition-all",
                 pathname === item.href
                   ? "bg-accent text-accent-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                  : "text-foreground hover:bg-accent/50",
+                "transform transition-all duration-300",
+                isMenuOpen 
+                  ? "translate-x-0 opacity-100" 
+                  : "-translate-x-4 opacity-0",
               )}
+              style={{ transitionDelay: `${index * 50}ms` }}
               onClick={() => setIsMenuOpen(false)}
             >
-              <item.icon className="h-4 w-4" />
+              <item.icon className="h-5 w-5" />
               {item.label}
             </Link>
           ))}
+          {user.role === "ADMIN" && (
+            <Link
+              href="/admin"
+              className={cn(
+                "flex items-center gap-3 px-4 py-4 text-lg font-medium rounded-lg transition-all",
+                "text-foreground hover:bg-accent/50",
+                "transform transition-all duration-300",
+                isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0",
+              )}
+              style={{ transitionDelay: `${navItems.length * 50}ms` }}
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Settings className="h-5 w-5" />
+              Admin Dashboard
+            </Link>
+          )}
+          <div className="pt-6 mt-4 border-t">
+            <Button 
+              variant="destructive" 
+              className="w-full" 
+              size="lg"
+              onClick={() => signOut({ callbackUrl: "/" })}
+            >
+              <LogOut className="mr-2 h-5 w-5" />
+              Sign Out
+            </Button>
+          </div>
         </nav>
       </div>
     </header>
   )
 }
-

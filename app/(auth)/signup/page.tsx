@@ -10,7 +10,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useToast } from "@/components/ui/use-toast"
 import { FountainLogoIcon } from "@/components/ui/fountain-logo"
-import { Loader2, ArrowLeft } from "lucide-react"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
+import { Loader2, ArrowLeft, Info } from "lucide-react"
 import { signUp } from "./actions"
 
 const roles = [
@@ -74,9 +75,9 @@ export default function SignUpPage() {
         toast({
           variant: "success",
           title: "Account created!",
-          description: "Welcome to Fountain! Please sign in with your new account.",
+          description: "Your account is pending approval. You'll receive an email once approved.",
         })
-        router.push("/login")
+        router.push("/pending-approval")
       } else {
         toast({
           variant: "destructive",
@@ -84,7 +85,7 @@ export default function SignUpPage() {
           description: result.error || "Something went wrong. Please try again.",
         })
       }
-    } catch (error) {
+    } catch {
       toast({
         variant: "destructive",
         title: "Error",
@@ -98,7 +99,7 @@ export default function SignUpPage() {
   return (
     <div className="min-h-screen flex flex-col gradient-bg hero-pattern">
       {/* Header */}
-      <header className="container px-4 py-6">
+      <header className="container px-4 py-6 flex items-center justify-between">
         <Link 
           href="/" 
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -106,6 +107,7 @@ export default function SignUpPage() {
           <ArrowLeft className="h-4 w-4" />
           Back to Home
         </Link>
+        <ThemeToggle />
       </header>
 
       {/* Main Content */}
@@ -123,6 +125,14 @@ export default function SignUpPage() {
             </div>
           </CardHeader>
           <CardContent className="pt-6">
+            {/* Info Banner */}
+            <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-lg p-3 mb-6 flex gap-3">
+              <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-blue-700 dark:text-blue-300">
+                Your account will need to be approved by an admin before you can access the onboarding portal.
+              </p>
+            </div>
+
             <form onSubmit={onSubmit} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
@@ -221,4 +231,3 @@ export default function SignUpPage() {
     </div>
   )
 }
-

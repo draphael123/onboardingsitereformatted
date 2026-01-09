@@ -32,9 +32,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import {
+  Tabs,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
 import { useToast } from "@/components/ui/use-toast"
 import { formatDate } from "@/lib/utils"
-import { createUser, updateUser, deleteUser, resetPassword } from "./actions"
+import { createUser, updateUser, deleteUser, resetPassword, approveUser, rejectUser } from "./actions"
 import { 
   Plus, 
   Pencil, 
@@ -43,16 +48,17 @@ import {
   Key,
   Loader2,
   CheckCircle2,
+  XCircle,
   Clock,
-  Circle
 } from "lucide-react"
-import type { Role } from "@prisma/client"
+import type { Role, UserStatus } from "@prisma/client"
 
 interface UserWithChecklist {
   id: string
   name: string | null
   email: string
   role: Role
+  status: UserStatus
   createdAt: Date
   checklist: {
     sections: {
@@ -75,20 +81,33 @@ function calculateProgress(checklist: UserWithChecklist["checklist"]) {
   return { completed, total, percentage: total > 0 ? Math.round((completed / total) * 100) : 0 }
 }
 
+const statusConfig = {
+  PENDING: { label: "Pending", variant: "warning" as const, icon: Clock },
+  APPROVED: { label: "Approved", variant: "success" as const, icon: CheckCircle2 },
+  REJECTED: { label: "Rejected", variant: "destructive" as const, icon: XCircle },
+}
+
 export function UsersTable({ users: initialUsers }: UsersTableProps) {
   const [users, setUsers] = useState(initialUsers)
   const [searchQuery, setSearchQuery] = useState("")
+  const [statusFilter, setStatusFilter] = useState<"all" | UserStatus>("all")
   const [isCreateOpen, setIsCreateOpen] = useState(false)
   const [editingUser, setEditingUser] = useState<UserWithChecklist | null>(null)
   const [isPending, startTransition] = useTransition()
   const { toast } = useToast()
 
-  const filteredUsers = users.filter(
-    (user) =>
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch =
       user.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       user.role.toLowerCase().includes(searchQuery.toLowerCase())
-  )
+    
+    const matchesStatus = statusFilter === "all" || user.status === statusFilter
+    
+    return matchesSearch && matchesStatus
+  })
+
+  const pendingCount = users.filter((u) => u.status === "PENDING").length
 
   const handleCreate = async (formData: FormData) => {
     startTransition(async () => {
@@ -105,7 +124,7 @@ export function UsersTable({ users: initialUsers }: UsersTableProps) {
           title: "User Created",
           description: `${result.user.email} has been created successfully.`,
         })
-        setUsers((prev) => [{ ...result.user!, checklist: null }, ...prev])
+        setUsers((prev) => [{ ...result.user!, status: "APPROVED" as UserStatus, checklist: null }, ...prev])
         setIsCreateOpen(false)
       } else {
         toast({
@@ -188,94 +207,159 @@ export function UsersTable({ users: initialUsers }: UsersTableProps) {
     })
   }
 
+  const handleApprove = async (userId: string) => {
+    startTransition(async () => {
+      const result = await approveUser(userId)
+
+      if (result.success) {
+        toast({
+          variant: "success",
+          title: "User Approved",
+          description: "User has been approved and notified via email.",
+        })
+        setUsers((prev) =>
+          prev.map((u) => (u.id === userId ? { ...u, status: "APPROVED" as UserStatus } : u))
+        )
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: result.error || "Failed to approve user",
+        })
+      }
+    })
+  }
+
+  const handleReject = async (userId: string) => {
+    startTransition(async () => {
+      const result = await rejectUser(userId)
+
+      if (result.success) {
+        toast({
+          title: "User Rejected",
+          description: "User access has been rejected.",
+        })
+        setUsers((prev) =>
+          prev.map((u) => (u.id === userId ? { ...u, status: "REJECTED" as UserStatus } : u))
+        )
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: result.error || "Failed to reject user",
+        })
+      }
+    })
+  }
+
   return (
     <div className="space-y-4">
       {/* Toolbar */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-between">
-        <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search users..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col sm:flex-row gap-4 justify-between">
+          <div className="relative flex-1 max-w-sm">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search users..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+          <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
+            <DialogTrigger asChild>
+              <Button>
+                <Plus className="mr-2 h-4 w-4" />
+                Add User
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <form action={handleCreate}>
+                <DialogHeader>
+                  <DialogTitle>Create New User</DialogTitle>
+                  <DialogDescription>
+                    Add a new team member to the onboarding system.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="grid gap-4 py-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Name</Label>
+                    <Input id="name" name="name" placeholder="John Doe" required />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="john@fountainvitality.com"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="password">Temporary Password</Label>
+                    <Input
+                      id="password"
+                      name="password"
+                      type="text"
+                      placeholder="TempPass123!"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="role">Role</Label>
+                    <Select name="role" defaultValue="CS">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select role" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {roles.map((role) => (
+                          <SelectItem key={role} value={role}>
+                            {role}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit" disabled={isPending}>
+                    {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Create User
+                  </Button>
+                </DialogFooter>
+              </form>
+            </DialogContent>
+          </Dialog>
         </div>
-        <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
-          <DialogTrigger asChild>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              Add User
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <form action={handleCreate}>
-              <DialogHeader>
-                <DialogTitle>Create New User</DialogTitle>
-                <DialogDescription>
-                  Add a new team member to the onboarding system.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Name</Label>
-                  <Input id="name" name="name" placeholder="John Doe" required />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="john@fountainvitality.com"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password">Temporary Password</Label>
-                  <Input
-                    id="password"
-                    name="password"
-                    type="text"
-                    placeholder="TempPass123!"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="role">Role</Label>
-                  <Select name="role" defaultValue="CS">
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select role" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {roles.map((role) => (
-                        <SelectItem key={role} value={role}>
-                          {role}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <DialogFooter>
-                <Button type="submit" disabled={isPending}>
-                  {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  Create User
-                </Button>
-              </DialogFooter>
-            </form>
-          </DialogContent>
-        </Dialog>
+
+        {/* Status Filter Tabs */}
+        <Tabs value={statusFilter} onValueChange={(v) => setStatusFilter(v as "all" | UserStatus)}>
+          <TabsList>
+            <TabsTrigger value="all">All Users ({users.length})</TabsTrigger>
+            <TabsTrigger value="PENDING" className="relative">
+              Pending
+              {pendingCount > 0 && (
+                <Badge variant="destructive" className="ml-2 h-5 w-5 p-0 flex items-center justify-center text-xs">
+                  {pendingCount}
+                </Badge>
+              )}
+            </TabsTrigger>
+            <TabsTrigger value="APPROVED">Approved</TabsTrigger>
+            <TabsTrigger value="REJECTED">Rejected</TabsTrigger>
+          </TabsList>
+        </Tabs>
       </div>
 
       {/* Table */}
-      <div className="rounded-md border">
+      <div className="rounded-md border overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr className="border-b bg-muted/50">
               <th className="h-12 px-4 text-left align-middle font-medium">Name</th>
               <th className="h-12 px-4 text-left align-middle font-medium">Email</th>
               <th className="h-12 px-4 text-left align-middle font-medium">Role</th>
+              <th className="h-12 px-4 text-left align-middle font-medium">Status</th>
               <th className="h-12 px-4 text-left align-middle font-medium">Progress</th>
               <th className="h-12 px-4 text-left align-middle font-medium">Created</th>
               <th className="h-12 px-4 text-right align-middle font-medium">Actions</th>
@@ -284,13 +368,14 @@ export function UsersTable({ users: initialUsers }: UsersTableProps) {
           <tbody>
             {filteredUsers.length === 0 ? (
               <tr>
-                <td colSpan={6} className="h-24 text-center text-muted-foreground">
+                <td colSpan={7} className="h-24 text-center text-muted-foreground">
                   No users found.
                 </td>
               </tr>
             ) : (
               filteredUsers.map((user) => {
                 const progress = calculateProgress(user.checklist)
+                const StatusIcon = statusConfig[user.status].icon
                 return (
                   <tr key={user.id} className="border-b">
                     <td className="p-4 font-medium">{user.name || "-"}</td>
@@ -299,7 +384,13 @@ export function UsersTable({ users: initialUsers }: UsersTableProps) {
                       <Badge variant="secondary">{user.role}</Badge>
                     </td>
                     <td className="p-4">
-                      {user.checklist ? (
+                      <Badge variant={statusConfig[user.status].variant} className="gap-1">
+                        <StatusIcon className="h-3 w-3" />
+                        {statusConfig[user.status].label}
+                      </Badge>
+                    </td>
+                    <td className="p-4">
+                      {user.status === "APPROVED" && user.checklist ? (
                         <div className="flex items-center gap-2">
                           <div className="w-20 h-2 bg-muted rounded-full overflow-hidden">
                             <div
@@ -312,14 +403,54 @@ export function UsersTable({ users: initialUsers }: UsersTableProps) {
                           </span>
                         </div>
                       ) : (
-                        <span className="text-sm text-muted-foreground">Not started</span>
+                        <span className="text-sm text-muted-foreground">-</span>
                       )}
                     </td>
                     <td className="p-4 text-muted-foreground text-sm">
                       {formatDate(user.createdAt)}
                     </td>
                     <td className="p-4 text-right">
-                      <div className="flex items-center justify-end gap-2">
+                      <div className="flex items-center justify-end gap-1">
+                        {/* Approve/Reject for pending users */}
+                        {user.status === "PENDING" && (
+                          <>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-green-600 hover:text-green-700 hover:bg-green-50"
+                              onClick={() => handleApprove(user.id)}
+                              disabled={isPending}
+                            >
+                              <CheckCircle2 className="h-4 w-4 mr-1" />
+                              Approve
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                              onClick={() => handleReject(user.id)}
+                              disabled={isPending}
+                            >
+                              <XCircle className="h-4 w-4 mr-1" />
+                              Reject
+                            </Button>
+                          </>
+                        )}
+
+                        {/* Re-approve rejected users */}
+                        {user.status === "REJECTED" && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-green-600 hover:text-green-700 hover:bg-green-50"
+                            onClick={() => handleApprove(user.id)}
+                            disabled={isPending}
+                          >
+                            <CheckCircle2 className="h-4 w-4 mr-1" />
+                            Approve
+                          </Button>
+                        )}
+
                         {/* Edit */}
                         <Dialog
                           open={editingUser?.id === user.id}
@@ -453,4 +584,3 @@ export function UsersTable({ users: initialUsers }: UsersTableProps) {
     </div>
   )
 }
-

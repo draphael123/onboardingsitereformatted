@@ -5,6 +5,8 @@ import { useState } from "react"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { FountainLogo } from "@/components/ui/fountain-logo"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
+import { SearchCommand } from "@/components/ui/search-command"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -27,7 +29,7 @@ export function PublicHeader() {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-1">
+        <nav className="hidden lg:flex items-center space-x-1">
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -37,44 +39,62 @@ export function PublicHeader() {
               {item.label}
             </Link>
           ))}
-          <div className="ml-4 pl-4 border-l">
+        </nav>
+
+        {/* Right side actions */}
+        <div className="flex items-center gap-2">
+          <div className="hidden md:flex">
+            <SearchCommand />
+          </div>
+          <ThemeToggle />
+          <div className="hidden md:flex ml-2 pl-2 border-l">
             <Button asChild>
               <Link href="/login">Sign In</Link>
             </Button>
           </div>
-        </nav>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 rounded-md hover:bg-accent"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden p-2 rounded-md hover:bg-accent"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
       <div
         className={cn(
-          "md:hidden absolute top-full left-0 right-0 bg-background border-b shadow-lg transition-all duration-300 ease-out",
-          isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
+          "lg:hidden fixed inset-0 top-16 bg-background/98 backdrop-blur-sm z-40 transition-all duration-300 ease-out",
+          isMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
         )}
       >
-        <nav className="container flex flex-col py-4 px-4 space-y-1">
-          {navItems.map((item) => (
+        <nav className="container flex flex-col py-6 px-4 space-y-2">
+          {navItems.map((item, index) => (
             <Link
               key={item.href}
               href={item.href}
-              className="px-4 py-3 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-md hover:bg-accent"
+              className={cn(
+                "px-4 py-4 text-lg font-medium text-foreground transition-all hover:bg-accent rounded-lg",
+                "transform transition-all duration-300",
+                isMenuOpen 
+                  ? "translate-x-0 opacity-100" 
+                  : "-translate-x-4 opacity-0",
+              )}
+              style={{ transitionDelay: `${index * 50}ms` }}
               onClick={() => setIsMenuOpen(false)}
             >
               {item.label}
             </Link>
           ))}
-          <div className="pt-4 mt-2 border-t">
-            <Button asChild className="w-full">
+          <div className="pt-6 mt-4 border-t space-y-3">
+            <Button asChild className="w-full" size="lg">
               <Link href="/login">Sign In</Link>
+            </Button>
+            <Button asChild variant="outline" className="w-full" size="lg">
+              <Link href="/signup">Create Account</Link>
             </Button>
           </div>
         </nav>
@@ -82,4 +102,3 @@ export function PublicHeader() {
     </header>
   )
 }
-

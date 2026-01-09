@@ -7,13 +7,15 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { FountainLogoIcon } from "@/components/ui/fountain-logo"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { 
   LayoutDashboard, 
   Users, 
   ClipboardList, 
   FileText,
   LogOut,
-  ChevronLeft
+  ChevronLeft,
+  BarChart3
 } from "lucide-react"
 
 const sidebarItems = [
@@ -21,6 +23,7 @@ const sidebarItems = [
   { href: "/admin/users", label: "Users", icon: Users },
   { href: "/admin/templates", label: "Templates", icon: ClipboardList },
   { href: "/admin/content", label: "Content", icon: FileText },
+  { href: "/admin/analytics", label: "Analytics", icon: BarChart3 },
 ]
 
 export function AdminSidebar() {
@@ -29,14 +32,17 @@ export function AdminSidebar() {
   return (
     <div className="flex h-full w-64 flex-col border-r bg-muted/30">
       {/* Header */}
-      <div className="flex h-16 items-center gap-2 border-b px-6">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-          <FountainLogoIcon className="h-5 w-5" />
+      <div className="flex h-16 items-center justify-between border-b px-4">
+        <div className="flex items-center gap-2">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+            <FountainLogoIcon className="h-5 w-5" />
+          </div>
+          <div>
+            <span className="font-display font-semibold">Admin</span>
+            <p className="text-xs text-muted-foreground">Fountain</p>
+          </div>
         </div>
-        <div>
-          <span className="font-display font-semibold">Admin</span>
-          <p className="text-xs text-muted-foreground">Fountain</p>
-        </div>
+        <ThemeToggle variant="toggle" />
       </div>
 
       {/* Navigation */}
@@ -81,4 +87,3 @@ export function AdminSidebar() {
     </div>
   )
 }
-

@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { useToast } from "@/components/ui/use-toast"
 import { FountainLogoIcon } from "@/components/ui/fountain-logo"
+import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { Loader2, ArrowLeft } from "lucide-react"
 
 export default function LoginPage() {
@@ -45,7 +46,7 @@ export default function LoginPage() {
         router.push("/app")
         router.refresh()
       }
-    } catch (error) {
+    } catch {
       toast({
         variant: "destructive",
         title: "Error",
@@ -59,7 +60,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex flex-col gradient-bg hero-pattern">
       {/* Header */}
-      <header className="container px-4 py-6">
+      <header className="container px-4 py-6 flex items-center justify-between">
         <Link 
           href="/" 
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -67,6 +68,7 @@ export default function LoginPage() {
           <ArrowLeft className="h-4 w-4" />
           Back to Home
         </Link>
+        <ThemeToggle />
       </header>
 
       {/* Main Content */}
@@ -99,7 +101,15 @@ export default function LoginPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password">Password</Label>
+                  <Link 
+                    href="/forgot-password" 
+                    className="text-xs text-primary hover:underline"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
                 <Input
                   id="password"
                   type="password"
@@ -144,4 +154,3 @@ export default function LoginPage() {
     </div>
   )
 }
-

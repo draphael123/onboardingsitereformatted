@@ -3,7 +3,8 @@
 import { db } from "@/lib/db"
 import bcrypt from "bcryptjs"
 import { z } from "zod"
-import { sendWelcomeEmail } from "@/lib/email"
+import { sendWelcomeEmail, sendEmailVerification } from "@/lib/email"
+import { randomBytes } from "crypto"
 
 const signUpSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -39,13 +40,26 @@ export async function signUp(data: {
     // Hash password
     const passwordHash = await bcrypt.hash(password, 12)
 
-    // Create user
+    // Create user with PENDING status
     const user = await db.user.create({
       data: {
         name,
         email: email.toLowerCase(),
         passwordHash,
         role,
+        status: "PENDING", // Requires admin approval
+      },
+    })
+
+    // Create email verification token
+    const verificationToken = randomBytes(32).toString("hex")
+    const expires = new Date(Date.now() + 24 * 60 * 60 * 1000) // 24 hours
+
+    await db.emailVerificationToken.create({
+      data: {
+        token: verificationToken,
+        userId: user.id,
+        expires,
       },
     })
 
@@ -56,10 +70,32 @@ export async function signUp(data: {
       role,
     })
 
+    // Send email verification
+    await sendEmailVerification({
+      to: email,
+      name,
+      token: verificationToken,
+    })
+
+    // Notify admins about new user (create notification for all admins)
+    const admins = await db.user.findMany({
+      where: { role: "ADMIN" },
+      select: { id: true },
+    })
+
+    await db.notification.createMany({
+      data: admins.map((admin) => ({
+        userId: admin.id,
+        type: "INFO",
+        title: "New User Registration",
+        message: `${name} (${email}) has registered as ${role} and is pending approval.`,
+        link: "/admin/users",
+      })),
+    })
+
     return { success: true, userId: user.id }
   } catch (error) {
     console.error("Sign up error:", error)
     return { success: false, error: "Failed to create account. Please try again." }
   }
 }
-
