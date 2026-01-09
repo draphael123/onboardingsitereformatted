@@ -5,7 +5,7 @@ import { db } from "@/lib/db"
 import { requireAdmin } from "@/lib/auth"
 import bcrypt from "bcryptjs"
 import { sendAccountApprovedEmail, sendWelcomeEmail } from "@/lib/email"
-import { cloneTemplateToUser } from "@/lib/checklist"
+import { cloneTemplateForUser } from "@/lib/checklist"
 import type { Role, UserStatus } from "@prisma/client"
 
 interface CreateUserInput {
@@ -47,7 +47,7 @@ export async function createUser(input: CreateUserInput) {
     })
 
     // Clone checklist from template
-    await cloneTemplateToUser(user.id, user.role)
+    await cloneTemplateForUser(user.id, user.role)
 
     // Send welcome email
     await sendWelcomeEmail({
@@ -153,7 +153,7 @@ export async function approveUser(userId: string) {
     })
 
     if (!existingChecklist) {
-      await cloneTemplateToUser(userId, user.role)
+      await cloneTemplateForUser(userId, user.role)
     }
 
     // Send approval email
@@ -216,7 +216,7 @@ export async function updateUserStatus(userId: string, status: UserStatus) {
       })
 
       if (!existingChecklist) {
-        await cloneTemplateToUser(userId, user.role)
+        await cloneTemplateForUser(userId, user.role)
       }
 
       // Send approval email
