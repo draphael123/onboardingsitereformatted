@@ -89,54 +89,6 @@ const documents = [
     category: "Policies",
     url: "https://docs.google.com/document/d/1NAErz9kcHNtph0_BSICC4OuFH2in6relkFRkWGz9vjk/edit?tab=t.0",
   },
-  {
-    title: "Employee Handbook",
-    description: "Company policies, procedures, and expectations",
-    category: "Policies",
-    url: "#",
-  },
-  {
-    title: "HIPAA Compliance Guide",
-    description: "Patient privacy regulations and best practices",
-    category: "Compliance",
-    url: "#",
-  },
-  {
-    title: "Clinical Protocols",
-    description: "Standard operating procedures for clinical staff",
-    category: "Clinical",
-    url: "#",
-  },
-  {
-    title: "TRT Treatment Guidelines",
-    description: "Testosterone therapy protocols and dosing",
-    category: "Clinical",
-    url: "#",
-  },
-  {
-    title: "HRT Treatment Guidelines",
-    description: "Hormone replacement therapy protocols",
-    category: "Clinical",
-    url: "#",
-  },
-  {
-    title: "Benefits Overview",
-    description: "Health insurance, PTO, and employee benefits",
-    category: "HR",
-    url: "#",
-  },
-  {
-    title: "IT Security Policy",
-    description: "Data security and acceptable use guidelines",
-    category: "IT",
-    url: "#",
-  },
-  {
-    title: "Emergency Procedures",
-    description: "Safety protocols and emergency contacts",
-    category: "Safety",
-    url: "#",
-  },
 ]
 
 const contacts = [
