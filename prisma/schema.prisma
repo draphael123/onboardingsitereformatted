@@ -1,0 +1,221 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// Authentication & Users
+// ============================================
+
+enum Role {
+  ADMIN
+  CS
+  NP
+  RN
+  MA
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  passwordHash  String?
+  image         String?
+  role          Role      @default(CS)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  accounts      Account[]
+  sessions      Session[]
+  checklist     UserChecklist?
+
+  @@map("users")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+// ============================================
+// Role Templates (Admin-defined)
+// ============================================
+
+model RoleTemplate {
+  id        String            @id @default(cuid())
+  role      Role              @unique
+  title     String
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  sections  TemplateSection[]
+
+  @@map("role_templates")
+}
+
+model TemplateSection {
+  id             String         @id @default(cuid())
+  roleTemplateId String
+  title          String
+  order          Int            @default(0)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  roleTemplate   RoleTemplate   @relation(fields: [roleTemplateId], references: [id], onDelete: Cascade)
+  items          TemplateItem[]
+
+  @@map("template_sections")
+}
+
+model TemplateItem {
+  id                String          @id @default(cuid())
+  templateSectionId String
+  title             String
+  description       String?         @db.Text
+  linkUrl           String?
+  fileUrl           String?
+  dueInDays         Int?            // Optional: days from onboarding start
+  order             Int             @default(0)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+
+  templateSection   TemplateSection @relation(fields: [templateSectionId], references: [id], onDelete: Cascade)
+
+  @@map("template_items")
+}
+
+// ============================================
+// User Checklists (Cloned from templates)
+// ============================================
+
+enum ItemStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETE
+}
+
+model UserChecklist {
+  id        String        @id @default(cuid())
+  userId    String        @unique
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sections  UserSection[]
+
+  @@map("user_checklists")
+}
+
+model UserSection {
+  id              String        @id @default(cuid())
+  userChecklistId String
+  title           String
+  order           Int           @default(0)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  userChecklist   UserChecklist @relation(fields: [userChecklistId], references: [id], onDelete: Cascade)
+  items           UserItem[]
+
+  @@map("user_sections")
+}
+
+model UserItem {
+  id            String      @id @default(cuid())
+  userSectionId String
+  title         String
+  description   String?     @db.Text
+  linkUrl       String?
+  fileUrl       String?
+  dueDate       DateTime?
+  status        ItemStatus  @default(NOT_STARTED)
+  completedAt   DateTime?
+  stableKey     String      // For template sync: "section-title_item-title"
+  order         Int         @default(0)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  userSection   UserSection @relation(fields: [userSectionId], references: [id], onDelete: Cascade)
+
+  @@map("user_items")
+}
+
+// ============================================
+// Public Content
+// ============================================
+
+model PublicDoc {
+  id          String   @id @default(cuid())
+  title       String
+  description String?  @db.Text
+  url         String
+  category    String   @default("General")
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("public_docs")
+}
+
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String   @db.Text
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("faqs")
+}
+
+model PublicContent {
+  id        String   @id @default(cuid())
+  key       String   @unique // e.g., "home_hero_title", "about_intro"
+  value     String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("public_content")
+}
+
