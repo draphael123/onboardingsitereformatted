@@ -17,8 +17,115 @@ import {
   Heart,
   Star,
   Mail,
-  Phone
+  ExternalLink,
+  FileText,
+  Wrench,
+  MessageSquare,
+  Calendar,
+  CreditCard,
+  Stethoscope,
+  ClipboardList,
+  Video,
+  Headphones,
+  Database,
+  Lock
 } from "lucide-react"
+
+const tools = [
+  {
+    name: "Heidi Health",
+    description: "AI-powered clinical documentation and chart prep",
+    url: "https://heidihealth.com",
+    icon: Stethoscope,
+    color: "from-blue-500 to-blue-600",
+  },
+  {
+    name: "Intercom",
+    description: "Customer messaging and support platform",
+    url: "https://intercom.com",
+    icon: MessageSquare,
+    color: "from-indigo-500 to-indigo-600",
+  },
+  {
+    name: "Gusto",
+    description: "Payroll, benefits, and HR management",
+    url: "https://gusto.com",
+    icon: CreditCard,
+    color: "from-emerald-500 to-emerald-600",
+  },
+  {
+    name: "When I Work",
+    description: "Employee scheduling and time tracking",
+    url: "https://wheniwork.com",
+    icon: Calendar,
+    color: "from-purple-500 to-purple-600",
+  },
+  {
+    name: "Fountain Platform",
+    description: "Internal patient management system",
+    url: "#",
+    icon: Database,
+    color: "from-teal-500 to-teal-600",
+  },
+  {
+    name: "Training Portal",
+    description: "Access training videos and certification materials",
+    url: "#",
+    icon: Video,
+    color: "from-rose-500 to-rose-600",
+  },
+]
+
+const documents = [
+  {
+    title: "Employee Handbook",
+    description: "Company policies, procedures, and expectations",
+    category: "Policies",
+    url: "#",
+  },
+  {
+    title: "HIPAA Compliance Guide",
+    description: "Patient privacy regulations and best practices",
+    category: "Compliance",
+    url: "#",
+  },
+  {
+    title: "Clinical Protocols",
+    description: "Standard operating procedures for clinical staff",
+    category: "Clinical",
+    url: "#",
+  },
+  {
+    title: "TRT Treatment Guidelines",
+    description: "Testosterone therapy protocols and dosing",
+    category: "Clinical",
+    url: "#",
+  },
+  {
+    title: "HRT Treatment Guidelines",
+    description: "Hormone replacement therapy protocols",
+    category: "Clinical",
+    url: "#",
+  },
+  {
+    title: "Benefits Overview",
+    description: "Health insurance, PTO, and employee benefits",
+    category: "HR",
+    url: "#",
+  },
+  {
+    title: "IT Security Policy",
+    description: "Data security and acceptable use guidelines",
+    category: "IT",
+    url: "#",
+  },
+  {
+    title: "Emergency Procedures",
+    description: "Safety protocols and emergency contacts",
+    category: "Safety",
+    url: "#",
+  },
+]
 
 const contacts = [
   { topic: "Schedules", person: "Ashley Gwinn" },
@@ -336,10 +443,122 @@ export default function HomePage() {
         </div>
       </section>
 
-      <WaveDivider variant="tilt" color="fill-muted/30" />
+      {/* Tools Section */}
+      <section className="py-20 md:py-32">
+        <div className="container px-4 md:px-6">
+          <ScrollReveal animation="fade-in">
+            <div className="text-center mb-16">
+              <span className="text-teal-600 dark:text-teal-400 font-semibold text-sm uppercase tracking-wider mb-4 block">Work Essentials</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
+                Tools & <span className="gradient-text">Platforms</span>
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Access the essential tools and platforms you&apos;ll use daily at Fountain.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal animation="stagger">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+              {tools.map((tool) => (
+                <a
+                  key={tool.name}
+                  href={tool.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Card className="glass-card p-6 h-full group cursor-pointer">
+                    <CardContent className="p-0">
+                      <div className="flex items-start gap-4">
+                        <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${tool.color} flex items-center justify-center text-white flex-shrink-0 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                          <tool.icon className="h-7 w-7" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="font-semibold text-lg">{tool.name}</h3>
+                            <ExternalLink className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                          </div>
+                          <p className="text-muted-foreground text-sm">
+                            {tool.description}
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </a>
+              ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <WaveDivider variant="wave" color="fill-muted/30" />
+
+      {/* Documents Section */}
+      <section className="py-20 md:py-32 bg-muted/30">
+        <div className="container px-4 md:px-6">
+          <ScrollReveal animation="fade-in">
+            <div className="text-center mb-16">
+              <span className="text-teal-600 dark:text-teal-400 font-semibold text-sm uppercase tracking-wider mb-4 block">Resources</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
+                Important <span className="gradient-text">Documents</span>
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Essential documents, policies, and guides for all team members.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal animation="stagger">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+              {documents.map((doc, index) => (
+                <a
+                  key={index}
+                  href={doc.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <Card className="glass-card p-5 h-full group cursor-pointer">
+                    <CardContent className="p-0">
+                      <div className="flex items-start gap-3">
+                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-500/20 to-blue-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                          <FileText className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="font-semibold text-sm truncate">{doc.title}</h3>
+                          </div>
+                          <p className="text-muted-foreground text-xs line-clamp-2">
+                            {doc.description}
+                          </p>
+                          <span className="inline-block mt-2 text-xs font-medium text-teal-600 dark:text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded-full">
+                            {doc.category}
+                          </span>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </a>
+              ))}
+            </div>
+          </ScrollReveal>
+          <ScrollReveal animation="fade-in" delay={200}>
+            <div className="text-center mt-10">
+              <Button variant="outline" asChild className="group">
+                <Link href="/docs">
+                  View All Documents
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <WaveDivider variant="tilt" color="fill-background" flip />
 
       {/* Features Section */}
-      <section className="py-20 md:py-32 bg-muted/30">
+      <section className="py-20 md:py-32">
         <div className="container px-4 md:px-6">
           <ScrollReveal animation="fade-in">
             <div className="text-center mb-16">
