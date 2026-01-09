@@ -15,27 +15,24 @@ export function FountainLogo({ className, showText = true, textClassName }: Foun
         xmlns="http://www.w3.org/2000/svg"
         className={cn("h-9 w-9", className)}
       >
-        {/* Left leaf/petal */}
+        {/* Left leaf - dark navy */}
         <path
-          d="M12 8C12 8 6 16 6 22C6 28 10 32 16 32C16 32 12 26 12 20C12 14 12 8 12 8Z"
-          fill="currentColor"
-          className="text-primary"
+          d="M8 32C8 32 4 24 8 16C12 8 16 8 16 8C16 8 12 16 12 22C12 28 8 32 8 32Z"
+          fill="#1e3a5f"
         />
-        {/* Middle leaf/petal */}
+        {/* Middle leaf - teal */}
         <path
-          d="M20 4C20 4 14 14 14 22C14 30 18 36 26 36C26 36 20 28 20 20C20 12 20 4 20 4Z"
-          fill="currentColor"
-          className="text-primary"
+          d="M16 36C16 36 10 26 14 16C18 6 24 4 24 4C24 4 18 14 18 22C18 30 16 36 16 36Z"
+          fill="#14b8a6"
         />
-        {/* Right leaf/petal - lighter shade */}
+        {/* Right leaf - teal */}
         <path
-          d="M28 12C28 12 34 18 34 24C34 30 30 34 24 34C24 34 28 28 28 22C28 16 28 12 28 12Z"
-          fill="currentColor"
-          className="text-primary/70"
+          d="M26 32C26 32 34 24 32 14C30 6 26 4 26 4C26 4 30 12 30 20C30 28 26 32 26 32Z"
+          fill="#14b8a6"
         />
       </svg>
       {showText && (
-        <span className={cn("font-semibold text-xl tracking-tight", textClassName)}>
+        <span className={cn("font-semibold text-xl tracking-tight text-slate-800 dark:text-slate-100", textClassName)}>
           Fountain
         </span>
       )}
@@ -51,21 +48,20 @@ export function FountainLogoIcon({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       className={cn("h-6 w-6", className)}
     >
-      {/* Left leaf/petal */}
+      {/* Left leaf - dark navy */}
       <path
-        d="M12 8C12 8 6 16 6 22C6 28 10 32 16 32C16 32 12 26 12 20C12 14 12 8 12 8Z"
-        fill="currentColor"
+        d="M8 32C8 32 4 24 8 16C12 8 16 8 16 8C16 8 12 16 12 22C12 28 8 32 8 32Z"
+        fill="#1e3a5f"
       />
-      {/* Middle leaf/petal */}
+      {/* Middle leaf - teal */}
       <path
-        d="M20 4C20 4 14 14 14 22C14 30 18 36 26 36C26 36 20 28 20 20C20 12 20 4 20 4Z"
-        fill="currentColor"
+        d="M16 36C16 36 10 26 14 16C18 6 24 4 24 4C24 4 18 14 18 22C18 30 16 36 16 36Z"
+        fill="#14b8a6"
       />
-      {/* Right leaf/petal - lighter shade */}
+      {/* Right leaf - teal */}
       <path
-        d="M28 12C28 12 34 18 34 24C34 30 30 34 24 34C24 34 28 28 28 22C28 16 28 12 28 12Z"
-        fill="currentColor"
-        fillOpacity="0.7"
+        d="M26 32C26 32 34 24 32 14C30 6 26 4 26 4C26 4 30 12 30 20C30 28 26 32 26 32Z"
+        fill="#14b8a6"
       />
     </svg>
   )
