@@ -1,6 +1,10 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { WaveDivider } from "@/components/ui/wave-divider"
+import { AnimatedCounter } from "@/components/ui/animated-counter"
+import { ScrollReveal } from "@/components/ui/scroll-reveal"
+import { TestimonialCarousel } from "@/components/ui/testimonial-carousel"
 import { 
   ArrowRight, 
   CheckCircle2, 
@@ -11,7 +15,9 @@ import {
   Sparkles,
   Syringe,
   Heart,
-  Star
+  Star,
+  Zap,
+  Award
 } from "lucide-react"
 
 const features = [
@@ -38,10 +44,10 @@ const features = [
 ]
 
 const roles = [
-  { name: "Customer Service", abbr: "CS", color: "bg-blue-500" },
-  { name: "Nurse Practitioners", abbr: "NP", color: "bg-purple-500" },
-  { name: "Registered Nurses", abbr: "RN", color: "bg-rose-500" },
-  { name: "Medical Assistants", abbr: "MA", color: "bg-amber-500" },
+  { name: "Customer Service", abbr: "CS", color: "from-blue-500 to-blue-600" },
+  { name: "Nurse Practitioners", abbr: "NP", color: "from-purple-500 to-purple-600" },
+  { name: "Registered Nurses", abbr: "RN", color: "from-rose-500 to-rose-600" },
+  { name: "Medical Assistants", abbr: "MA", color: "from-amber-500 to-amber-600" },
 ]
 
 const programs = [
@@ -49,13 +55,13 @@ const programs = [
     icon: Syringe,
     title: "Testosterone Replacement Therapy (TRT)",
     description: "Tailored for men seeking to restore testosterone levels. Our TRT program enhances muscle mass, reduces body fat, boosts energy, and improves libido.",
-    color: "bg-blue-500",
+    gradient: "from-blue-500 to-teal-500",
   },
   {
     icon: Heart,
     title: "Hormone Replacement Therapy (HRT)",
     description: "Designed for women experiencing peri/menopause symptoms. Our HRT program alleviates brain fog, hot flashes, and low energy with customized hormone therapy.",
-    color: "bg-rose-500",
+    gradient: "from-rose-500 to-pink-500",
   },
 ]
 
@@ -98,204 +104,238 @@ const reviews = [
   },
 ]
 
+const stats = [
+  { value: 7000, suffix: "+", label: "Happy Members" },
+  { value: 24, suffix: "/7", label: "Support Available" },
+  { value: 98, suffix: "%", label: "Satisfaction Rate" },
+  { value: 10, suffix: "+", label: "Years Experience" },
+]
+
 export default function HomePage() {
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col overflow-hidden">
       {/* Hero Section */}
-      <section className="relative overflow-hidden hero-pattern">
-        <div className="container px-4 md:px-6 py-20 md:py-32">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6 animate-fade-in">
+      <section className="relative min-h-[90vh] flex items-center hero-gradient hero-pattern">
+        <div className="container px-4 md:px-6 py-20 md:py-32 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 text-teal-600 dark:text-teal-400 text-sm font-medium mb-8 animate-fade-in">
               <Sparkles className="h-4 w-4" />
               Welcome to Fountain
+              <span className="flex h-2 w-2 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+              </span>
             </div>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 opacity-0 animate-fade-in-up">
+            <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 opacity-0 animate-fade-in-up">
               Your Onboarding Journey{" "}
-              <span className="text-primary">Starts Here</span>
+              <span className="gradient-text-animated">Starts Here</span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-8 opacity-0 animate-fade-in-up animate-delay-100">
-              Fountain is a leading provider of concierge online TRT and HRT treatments. 
-              Join our team and help us deliver expert care directly to our members&apos; doorsteps.
+            <p className="text-xl md:text-2xl text-muted-foreground mb-10 opacity-0 animate-fade-in-up animate-delay-100 max-w-2xl mx-auto">
+              Join our team and help us deliver expert TRT and HRT care directly to our members&apos; doorsteps.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center opacity-0 animate-fade-in-up animate-delay-200">
-              <Button size="lg" asChild className="group">
+              <Button size="lg" asChild className="group text-lg px-8 py-6 bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 border-0 shadow-lg shadow-teal-500/25">
                 <Link href="/login">
                   Get Started
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild>
+              <Button size="lg" variant="outline" asChild className="text-lg px-8 py-6 border-2">
                 <Link href="/about">Learn More</Link>
               </Button>
             </div>
           </div>
         </div>
         
-        {/* Decorative gradient orbs */}
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-teal-500/15 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-400/10 rounded-full blur-3xl" />
+        {/* Animated floating orbs */}
+        <div className="absolute top-20 right-10 w-72 h-72 bg-teal-500/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-500/15 rounded-full blur-3xl animate-float-delayed" />
+        <div className="absolute top-1/2 left-1/4 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl animate-float-slow" />
       </section>
 
-      {/* Our Programs Section */}
-      <section className="py-16 md:py-24 bg-muted/30">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Our Programs
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Fountain offers specialized hormone therapy treatments delivered with 
-              convenience and personalized care.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {programs.map((program) => (
-              <Card 
-                key={program.title} 
-                className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-              >
-                <CardContent className="p-0">
-                  <div className={`${program.color} w-14 h-14 rounded-full flex items-center justify-center text-white mb-4`}>
-                    <program.icon className="h-7 w-7" />
-                  </div>
-                  <h3 className="font-semibold text-xl mb-3">{program.title}</h3>
-                  <p className="text-muted-foreground">
-                    {program.description}
-                  </p>
-                </CardContent>
-              </Card>
+      {/* Stats Section */}
+      <section className="py-12 bg-gradient-to-r from-teal-500 to-blue-500 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"30\" height=\"30\" viewBox=\"0 0 30 30\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cpath d=\"M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z\" fill=\"rgba(255,255,255,0.07)\"%2F%3E%3C%2Fsvg%3E')] opacity-50" />
+        <div className="container px-4 md:px-6 relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-4xl md:text-5xl font-bold mb-2">
+                  <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                </div>
+                <p className="text-white/80 text-sm md:text-base">{stat.label}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Programs Section */}
+      <section className="py-20 md:py-32 relative">
+        <div className="container px-4 md:px-6">
+          <ScrollReveal animation="fade-in">
+            <div className="text-center mb-16">
+              <span className="text-teal-600 dark:text-teal-400 font-semibold text-sm uppercase tracking-wider mb-4 block">Our Services</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
+                Our <span className="gradient-text">Programs</span>
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Fountain offers specialized hormone therapy treatments delivered with 
+                convenience and personalized care.
+              </p>
+            </div>
+          </ScrollReveal>
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {programs.map((program, index) => (
+              <ScrollReveal key={program.title} animation={index === 0 ? "slide-left" : "slide-right"} delay={index * 100}>
+                <Card className="glass-card overflow-hidden group">
+                  <CardContent className="p-8">
+                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${program.gradient} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                      <program.icon className="h-8 w-8" />
+                    </div>
+                    <h3 className="font-semibold text-2xl mb-4">{program.title}</h3>
+                    <p className="text-muted-foreground text-lg leading-relaxed">
+                      {program.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <WaveDivider variant="wave" color="fill-muted/30" />
 
       {/* Reviews Section */}
-      <section className="py-16 md:py-24">
-        <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-1 mb-4">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-6 w-6 fill-amber-400 text-amber-400" />
-              ))}
+      <section className="py-20 md:py-32 bg-muted/30 relative overflow-hidden">
+        <div className="container px-4 md:px-6 mb-12">
+          <ScrollReveal animation="fade-in">
+            <div className="text-center">
+              <div className="inline-flex items-center gap-1 mb-4 p-2 bg-amber-100 dark:bg-amber-900/30 rounded-full">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-6 w-6 fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
+                What Our <span className="gradient-text">Members</span> Say
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Join over 7,000+ satisfied members who have experienced the Fountain difference. 
+                Real reviews from Trustpilot.
+              </p>
             </div>
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              What Our Members Say
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Join over 7,000+ satisfied members who have experienced the Fountain difference. 
-              Real reviews from Trustpilot.
-            </p>
-          </div>
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
-            {reviews.map((review, index) => (
-              <Card 
-                key={index} 
-                className="break-inside-avoid p-6 hover:shadow-lg transition-all duration-300"
-              >
-                <CardContent className="p-0">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-semibold text-lg">{review.name}</span>
-                    <div className="flex items-center gap-0.5">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
-                      ))}
-                    </div>
-                  </div>
-                  <p className="text-xs text-muted-foreground mb-3">Trustpilot Review</p>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {review.review}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          </ScrollReveal>
         </div>
+        <TestimonialCarousel testimonials={reviews} />
       </section>
+
+      <WaveDivider variant="curve" color="fill-background" flip />
 
       {/* Roles Section */}
-      <section className="py-16 md:py-24">
+      <section className="py-20 md:py-32">
         <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Tailored for Every Role
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Whether you&apos;re joining as clinical staff or support team, 
-              we have customized onboarding paths for you.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto">
-            {roles.map((role, index) => (
-              <Card 
-                key={role.abbr} 
-                className="text-center p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className={`${role.color} w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-lg mx-auto mb-3`}>
-                  {role.abbr}
-                </div>
-                <h3 className="font-semibold text-sm">{role.name}</h3>
-              </Card>
-            ))}
-          </div>
+          <ScrollReveal animation="fade-in">
+            <div className="text-center mb-16">
+              <span className="text-teal-600 dark:text-teal-400 font-semibold text-sm uppercase tracking-wider mb-4 block">Join Our Team</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
+                Tailored for <span className="gradient-text">Every Role</span>
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Whether you&apos;re joining as clinical staff or support team, 
+                we have customized onboarding paths for you.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal animation="stagger">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+              {roles.map((role) => (
+                <Card 
+                  key={role.abbr} 
+                  className="glass-card text-center p-8 group cursor-pointer"
+                >
+                  <div className={`bg-gradient-to-br ${role.color} w-20 h-20 rounded-2xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}>
+                    {role.abbr}
+                  </div>
+                  <h3 className="font-semibold">{role.name}</h3>
+                </Card>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
       </section>
+
+      <WaveDivider variant="tilt" color="fill-muted/30" />
 
       {/* Features Section */}
-      <section className="py-16 md:py-24 bg-muted/30">
+      <section className="py-20 md:py-32 bg-muted/30">
         <div className="container px-4 md:px-6">
-          <div className="text-center mb-12">
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Everything You Need to Succeed
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Our platform provides all the tools and resources to make your 
-              onboarding experience smooth and efficient.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {features.map((feature, index) => (
-              <Card 
-                key={feature.title} 
-                className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-              >
-                <CardContent className="p-0">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4">
-                    <feature.icon className="h-6 w-6" />
-                  </div>
-                  <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
-                  <p className="text-sm text-muted-foreground">
-                    {feature.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <ScrollReveal animation="fade-in">
+            <div className="text-center mb-16">
+              <span className="text-teal-600 dark:text-teal-400 font-semibold text-sm uppercase tracking-wider mb-4 block">Platform Features</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
+                Everything You Need to <span className="gradient-text">Succeed</span>
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Our platform provides all the tools and resources to make your 
+                onboarding experience smooth and efficient.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal animation="stagger">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {features.map((feature) => (
+                <Card 
+                  key={feature.title} 
+                  className="glass-card p-6 group"
+                >
+                  <CardContent className="p-0">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500/20 to-blue-500/20 text-teal-600 dark:text-teal-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                      <feature.icon className="h-7 w-7" />
+                    </div>
+                    <h3 className="font-semibold text-xl mb-3">{feature.title}</h3>
+                    <p className="text-muted-foreground">
+                      {feature.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
+      <WaveDivider variant="wave" color="fill-background" flip />
+
       {/* CTA Section */}
-      <section className="py-16 md:py-24 bg-primary text-primary-foreground">
-        <div className="container px-4 md:px-6 text-center">
-          <div className="flex justify-center mb-6">
-            <Users className="h-12 w-12" />
-          </div>
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-            Ready to Join the Team?
-          </h2>
-          <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-8">
-            Sign in to access your personalized onboarding checklist and start 
-            your journey with Fountain. Join over 7,000+ satisfied members we serve.
-          </p>
-          <Button size="lg" variant="secondary" asChild>
-            <Link href="/login">
-              Sign In to Your Account
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+      <section className="py-20 md:py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-500 via-blue-500 to-purple-500" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.05\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]" />
+        <div className="container px-4 md:px-6 text-center relative z-10">
+          <ScrollReveal animation="scale">
+            <div className="max-w-3xl mx-auto">
+              <div className="flex justify-center mb-8">
+                <div className="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center animate-pulse-glow">
+                  <Users className="h-10 w-10 text-white" />
+                </div>
+              </div>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6 text-white">
+                Ready to Join the Team?
+              </h2>
+              <p className="text-white/80 text-xl max-w-2xl mx-auto mb-10">
+                Sign in to access your personalized onboarding checklist and start 
+                your journey with Fountain.
+              </p>
+              <Button size="lg" asChild className="text-lg px-10 py-6 bg-white text-teal-600 hover:bg-white/90 shadow-xl">
+                <Link href="/login">
+                  Sign In to Your Account
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
     </div>
   )
 }
-
