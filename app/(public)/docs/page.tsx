@@ -97,7 +97,7 @@ const categoryColors: Record<string, string> = {
   Policies: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100",
   Compliance: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-100",
   Safety: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100",
-  HR: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100",
+  HR: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-100",
   IT: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100",
   General: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100",
 }

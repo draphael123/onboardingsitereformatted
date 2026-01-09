@@ -55,8 +55,8 @@ export default async function AdminDashboardPage() {
       description: "Resources available",
       icon: FileText,
       href: "/admin/content",
-      color: "text-green-500",
-      bgColor: "bg-green-500/10",
+      color: "text-sky-500",
+      bgColor: "bg-sky-500/10",
     },
     {
       title: "FAQs",

@@ -75,8 +75,8 @@ const statusConfig = {
   COMPLETE: {
     label: "Complete",
     icon: CheckCircle2,
-    color: "text-green-600",
-    bgColor: "bg-green-50 dark:bg-green-950",
+    color: "text-blue-600",
+    bgColor: "bg-blue-50 dark:bg-blue-950",
     badge: "success" as const,
   },
 }
@@ -171,7 +171,7 @@ export function ChecklistView({ checklist, progress, userRole }: ChecklistViewPr
             </div>
             <div className="flex gap-4 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-green-500" />
+                <div className="w-3 h-3 rounded-full bg-blue-500" />
                 <span>{progress.completed} Complete</span>
               </div>
               <div className="flex items-center gap-2">
@@ -299,7 +299,7 @@ export function ChecklistView({ checklist, progress, userRole }: ChecklistViewPr
                                         </span>
                                       )}
                                       {item.completedAt && (
-                                        <span className="text-xs text-green-600">
+                                        <span className="text-xs text-blue-600">
                                           Completed: {formatDate(item.completedAt)}
                                         </span>
                                       )}
