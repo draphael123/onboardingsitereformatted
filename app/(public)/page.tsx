@@ -10,7 +10,8 @@ import {
   Clock,
   Sparkles,
   Syringe,
-  Heart
+  Heart,
+  Star
 } from "lucide-react"
 
 const features = [
@@ -55,6 +56,45 @@ const programs = [
     title: "Hormone Replacement Therapy (HRT)",
     description: "Designed for women experiencing peri/menopause symptoms. Our HRT program alleviates brain fog, hot flashes, and low energy with customized hormone therapy.",
     color: "bg-rose-500",
+  },
+]
+
+const reviews = [
+  {
+    name: "Jason",
+    review: "...after a few months of regular treatments everything that is advertised is 100% true. Losing fat, gaining muscle, more energy, revived sex drive. Easily the best health choice I've made for myself in years! Both physically and mentally.",
+  },
+  {
+    name: "Tommy",
+    review: "...completely changed my life! I no longer feel tired all day. My depression has dropped dramatically. I've dropped a ton of body fat. And I feel amazing!",
+  },
+  {
+    name: "Matt",
+    review: "Everyone is very helpful. Super easy. Super safe. Now at 40 years old, I feel like I'm 24 again! Doron and his staff are the best! Highly recommend.",
+  },
+  {
+    name: "Jose",
+    review: "Texting seems funky at first, but I quickly realized how convenient and responsive Fountain is to all of your questions and concerns. Overall... amazing experience.",
+  },
+  {
+    name: "N.",
+    review: "This is a very knowledgeable medical team that has changed and improved my overall health and well-being. The concierge service is world-class and extremely prompt, friendly, and professional.",
+  },
+  {
+    name: "Daniel",
+    review: "Dr. Doron Stember was absolutely terrific. Knowledgeable, sensitive and informative... I immediately felt at ease – and felt confident in my receiving expert medical care. There are many sites out there to choose from but I can honestly say this is who want to go with.",
+  },
+  {
+    name: "Jack",
+    review: "The absolute best customer experience. I am blown away by the knowledge and responsiveness of the team at Fountain.",
+  },
+  {
+    name: "Jason",
+    review: "The process is super easy. All parts of the process from bloodwork to shipping are fast and the results are definitely worth it. I'm sleeping better, working out more, lost weight and overall much more energy. Couldn't be happier.",
+  },
+  {
+    name: "P.",
+    review: "I wish I could rate Fountain higher than 5 stars.",
   },
 ]
 
@@ -121,6 +161,49 @@ export default function HomePage() {
                   <h3 className="font-semibold text-xl mb-3">{program.title}</h3>
                   <p className="text-muted-foreground">
                     {program.description}
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Reviews Section */}
+      <section className="py-16 md:py-24">
+        <div className="container px-4 md:px-6">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-1 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-6 w-6 fill-amber-400 text-amber-400" />
+              ))}
+            </div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
+              What Our Members Say
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              Join over 7,000+ satisfied members who have experienced the Fountain difference. 
+              Real reviews from Trustpilot.
+            </p>
+          </div>
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+            {reviews.map((review, index) => (
+              <Card 
+                key={index} 
+                className="break-inside-avoid p-6 hover:shadow-lg transition-all duration-300"
+              >
+                <CardContent className="p-0">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-semibold text-lg">{review.name}</span>
+                    <div className="flex items-center gap-0.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-4 w-4 fill-amber-400 text-amber-400" />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground mb-3">Trustpilot Review</p>
+                  <p className="text-muted-foreground text-sm leading-relaxed">
+                    {review.review}
                   </p>
                 </CardContent>
               </Card>
