@@ -78,6 +78,18 @@ const tools = [
 
 const documents = [
   {
+    title: "Systems Documents",
+    description: "Comprehensive guide to Fountain systems and workflows",
+    category: "Systems",
+    url: "https://docs.google.com/document/d/1dXIr-i2el4GPmvXuDTjSvD7boh1j_XyHY8sJ03xtDIg/edit?tab=t.7o24scjh5yuj#heading=h.ymrggzhy6n8k",
+  },
+  {
+    title: "Fountain Contractor Policies",
+    description: "Policies and guidelines for all Fountain contractors",
+    category: "Policies",
+    url: "https://docs.google.com/document/d/1NAErz9kcHNtph0_BSICC4OuFH2in6relkFRkWGz9vjk/edit?tab=t.0",
+  },
+  {
     title: "Employee Handbook",
     description: "Company policies, procedures, and expectations",
     category: "Policies",
