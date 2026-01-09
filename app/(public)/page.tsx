@@ -16,9 +16,23 @@ import {
   Syringe,
   Heart,
   Star,
-  Zap,
-  Award
+  Mail,
+  Phone
 } from "lucide-react"
+
+const contacts = [
+  { topic: "Schedules", person: "Ashley Gwinn" },
+  { topic: "Gusto/Payroll", person: "Tammy Hale" },
+  { topic: "Chart Prep (including Heidi context)", person: "Dawntaya Cooley (Taya)" },
+  { topic: "PMP/Refill Compliance Questions", person: "Lindsay" },
+  { topic: "HRT Clinical Questions", person: "Summer" },
+  { topic: "TRT Clinical Questions", person: "Bill" },
+  { topic: "GLP Clinical Questions", person: "Terray" },
+  { topic: "Async Questions", person: "Summer/Terray" },
+  { topic: "Shift Supervisor/Intercom Questions", person: "Camryn" },
+  { topic: "Clearances", person: "Tzvi" },
+  { topic: "Platform Issues/Technical Issues", person: "Daniel Raphael" },
+]
 
 const features = [
   {
@@ -260,6 +274,63 @@ export default function HomePage() {
                   <h3 className="font-semibold">{role.name}</h3>
                 </Card>
               ))}
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* Contact Directory Section */}
+      <section className="py-20 md:py-32 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
+        <div className="container px-4 md:px-6">
+          <ScrollReveal animation="fade-in">
+            <div className="text-center mb-16">
+              <span className="text-teal-600 dark:text-teal-400 font-semibold text-sm uppercase tracking-wider mb-4 block">Need Help?</span>
+              <h2 className="font-display text-4xl md:text-5xl font-bold mb-6">
+                Who to <span className="gradient-text">Contact</span>
+              </h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Find the right person to help you with your questions and concerns.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal animation="fade-in" delay={100}>
+            <div className="max-w-4xl mx-auto">
+              <Card className="glass-card overflow-hidden">
+                <div className="grid md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
+                  <div className="p-6">
+                    {contacts.slice(0, 6).map((contact, index) => (
+                      <div 
+                        key={index}
+                        className="flex items-start gap-4 py-4 border-b border-border/50 last:border-0"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500/20 to-blue-500/20 flex items-center justify-center flex-shrink-0">
+                          <Mail className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-foreground">{contact.topic}</p>
+                          <p className="text-muted-foreground text-sm">{contact.person}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="p-6">
+                    {contacts.slice(6).map((contact, index) => (
+                      <div 
+                        key={index}
+                        className="flex items-start gap-4 py-4 border-b border-border/50 last:border-0"
+                      >
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500/20 to-blue-500/20 flex items-center justify-center flex-shrink-0">
+                          <Mail className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-foreground">{contact.topic}</p>
+                          <p className="text-muted-foreground text-sm">{contact.person}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Card>
             </div>
           </ScrollReveal>
         </div>
