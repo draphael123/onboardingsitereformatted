@@ -78,6 +78,12 @@ const tools = [
 
 const documents = [
   {
+    title: "CS Training Guides",
+    description: "Complete workflow guides and training resources for Customer Service team",
+    category: "Training",
+    url: "https://docs.google.com/spreadsheets/d/1DzUULMv-YCW9HWq73-tCD-lGhzza-yod5e7DJBFOGb8/edit?gid=0#gid=0",
+  },
+  {
     title: "Systems Documents",
     description: "Comprehensive guide to Fountain systems and workflows",
     category: "Systems",
@@ -132,7 +138,8 @@ const roles = [
   { name: "Customer Service", abbr: "CS", color: "from-blue-500 to-blue-600" },
   { name: "Nurse Practitioners", abbr: "NP", color: "from-purple-500 to-purple-600" },
   { name: "Registered Nurses", abbr: "RN", color: "from-rose-500 to-rose-600" },
-  { name: "Medical Assistants", abbr: "MA", color: "from-amber-500 to-amber-600" },
+  { name: "MA - Pharmacy Team", abbr: "MA", subtitle: "Pharmacy", color: "from-amber-500 to-amber-600" },
+  { name: "MA - Back Office", abbr: "MA", subtitle: "Back Office", color: "from-orange-500 to-orange-600" },
 ]
 
 const programs = [
@@ -333,16 +340,19 @@ export default function HomePage() {
             </div>
           </ScrollReveal>
           <ScrollReveal animation="stagger">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              {roles.map((role) => (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-5xl mx-auto">
+              {roles.map((role, index) => (
                 <Card 
-                  key={role.abbr} 
-                  className="glass-card text-center p-8 group cursor-pointer"
+                  key={`${role.abbr}-${index}`} 
+                  className="glass-card text-center p-6 group cursor-pointer"
                 >
-                  <div className={`bg-gradient-to-br ${role.color} w-20 h-20 rounded-2xl flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}>
-                    {role.abbr}
+                  <div className={`bg-gradient-to-br ${role.color} w-16 h-16 md:w-20 md:h-20 rounded-2xl flex flex-col items-center justify-center text-white font-bold mx-auto mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}>
+                    <span className="text-xl md:text-2xl">{role.abbr}</span>
+                    {role.subtitle && (
+                      <span className="text-[10px] md:text-xs font-medium opacity-90">{role.subtitle}</span>
+                    )}
                   </div>
-                  <h3 className="font-semibold">{role.name}</h3>
+                  <h3 className="font-semibold text-sm md:text-base">{role.name}</h3>
                 </Card>
               ))}
             </div>
@@ -473,7 +483,7 @@ export default function HomePage() {
             </div>
           </ScrollReveal>
           <ScrollReveal animation="stagger">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {documents.map((doc, index) => (
                 <a
                   key={index}
@@ -482,20 +492,21 @@ export default function HomePage() {
                   rel="noopener noreferrer"
                   className="block"
                 >
-                  <Card className="glass-card p-5 h-full group cursor-pointer">
+                  <Card className="glass-card p-6 h-full group cursor-pointer">
                     <CardContent className="p-0">
-                      <div className="flex items-start gap-3">
-                        <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-teal-500/20 to-blue-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                          <FileText className="h-5 w-5 text-teal-600 dark:text-teal-400" />
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-500/20 to-blue-500/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
+                          <FileText className="h-6 w-6 text-teal-600 dark:text-teal-400" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3 className="font-semibold text-sm truncate">{doc.title}</h3>
+                          <div className="flex items-center gap-2 mb-2">
+                            <h3 className="font-semibold">{doc.title}</h3>
+                            <ExternalLink className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                           </div>
-                          <p className="text-muted-foreground text-xs line-clamp-2">
+                          <p className="text-muted-foreground text-sm line-clamp-2">
                             {doc.description}
                           </p>
-                          <span className="inline-block mt-2 text-xs font-medium text-teal-600 dark:text-teal-400 bg-teal-500/10 px-2 py-0.5 rounded-full">
+                          <span className="inline-block mt-3 text-xs font-medium text-teal-600 dark:text-teal-400 bg-teal-500/10 px-2.5 py-1 rounded-full">
                             {doc.category}
                           </span>
                         </div>
