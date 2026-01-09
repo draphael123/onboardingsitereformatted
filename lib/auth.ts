@@ -11,11 +11,13 @@ const loginSchema = z.object({
 })
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  // Note: We don't use a database adapter since we're using credentials-only auth with JWT sessions
-  // The user lookup happens in the authorize callback below
+  // Trust the host header from Vercel
+  trustHost: true,
+  // Use JWT sessions (no database adapter needed)
   session: { strategy: "jwt" },
   pages: {
     signIn: "/login",
+    error: "/login", // Redirect errors to login page
   },
   providers: [
     Credentials({
@@ -25,25 +27,30 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const parsed = loginSchema.safeParse(credentials)
-        if (!parsed.success) return null
+        try {
+          const parsed = loginSchema.safeParse(credentials)
+          if (!parsed.success) return null
 
-        const { email, password } = parsed.data
+          const { email, password } = parsed.data
 
-        const user = await db.user.findUnique({
-          where: { email: email.toLowerCase() },
-        })
+          const user = await db.user.findUnique({
+            where: { email: email.toLowerCase() },
+          })
 
-        if (!user || !user.passwordHash) return null
+          if (!user || !user.passwordHash) return null
 
-        const passwordMatch = await bcrypt.compare(password, user.passwordHash)
-        if (!passwordMatch) return null
+          const passwordMatch = await bcrypt.compare(password, user.passwordHash)
+          if (!passwordMatch) return null
 
-        return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          role: user.role,
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+          }
+        } catch (error) {
+          console.error("Auth error:", error)
+          return null
         }
       },
     }),
@@ -68,8 +75,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
 // Helper to get current session on server
 export async function getCurrentUser() {
-  const session = await auth()
-  return session?.user ?? null
+  try {
+    const session = await auth()
+    return session?.user ?? null
+  } catch {
+    return null
+  }
 }
 
 // Helper to require auth
@@ -89,4 +100,3 @@ export async function requireAdmin() {
   }
   return user
 }
-
