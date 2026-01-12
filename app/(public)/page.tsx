@@ -50,12 +50,6 @@ const tools = [
 
 const documents = [
   {
-    title: "CS Training Guides",
-    description: "Complete workflow guides and training resources for Customer Service team",
-    category: "Training",
-    url: "https://docs.google.com/spreadsheets/d/1DzUULMv-YCW9HWq73-tCD-lGhzza-yod5e7DJBFOGb8/edit?gid=0#gid=0",
-  },
-  {
     title: "Systems Documents",
     description: "Comprehensive guide to Fountain systems and workflows",
     category: "Systems",
@@ -468,7 +462,7 @@ export default function HomePage() {
             </div>
           </ScrollReveal>
           <ScrollReveal animation="stagger">
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {documents.map((doc, index) => (
                 <a
                   key={index}
