@@ -35,7 +35,8 @@ export default function LoginPage() {
         toast({
           variant: "destructive",
           title: "Authentication Failed",
-          description: "Invalid email or password. Please try again.",
+          description: result.error || "Invalid email or password. Please try again.",
+          duration: 10000, // Stay visible for 10 seconds
         })
       } else {
         toast({
