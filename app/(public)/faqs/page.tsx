@@ -119,7 +119,7 @@ const defaultFaqs = [
   {
     id: "18",
     question: "Who do I contact for clinical questions?",
-    answer: "For HRT clinical questions, contact Summer. For TRT clinical questions, contact Bill. For GLP clinical questions, contact Terray. For async questions, reach out to Summer or Terray.",
+    answer: "For HRT clinical questions, contact Summer Denny. For TRT clinical questions, contact Bill Carbonneau. For GLP clinical questions, contact Terray Humphrey. For async questions, reach out to Summer Denny or Terray Humphrey.",
     category: "Medical",
   },
   {
@@ -131,7 +131,7 @@ const defaultFaqs = [
   {
     id: "20",
     question: "How do I handle Intercom and customer inquiries?",
-    answer: "Intercom is our main customer messaging platform. For questions about Intercom workflows or shift supervisor questions, contact Camryn. Training on Intercom best practices is included in your onboarding.",
+    answer: "Intercom is our main customer messaging platform. For questions about Intercom workflows or shift supervisor questions, contact Camryn Burden. Training on Intercom best practices is included in your onboarding.",
     category: "Support",
   },
   {
@@ -143,7 +143,7 @@ const defaultFaqs = [
   {
     id: "22",
     question: "Who handles clearances and compliance?",
-    answer: "For clearance-related questions and compliance verification, contact Tzvi. They handle all background checks, licensing verification, and regulatory compliance matters.",
+    answer: "For clearance-related questions and compliance verification, contact Tzvi Doron. He handles all background checks, licensing verification, and regulatory compliance matters.",
     category: "Careers",
   },
   {
@@ -155,7 +155,7 @@ const defaultFaqs = [
   {
     id: "24",
     question: "What is PMP and refill compliance?",
-    answer: "PMP (Prescription Monitoring Program) compliance is crucial for controlled substance prescriptions. For any PMP or refill compliance questions, contact Lindsay who oversees our compliance protocols.",
+    answer: "PMP (Prescription Monitoring Program) compliance is crucial for controlled substance prescriptions. For any PMP or refill compliance questions, contact Lindsay Burden who oversees our compliance protocols.",
     category: "Medical",
   },
   {
