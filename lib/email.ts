@@ -25,9 +25,11 @@ interface WelcomeEmailData {
 
 const roleNames: Record<string, string> = {
   CS: "Customer Service",
-  NP: "Nurse Practitioner",
-  RN: "Registered Nurse",
-  MA: "Medical Assistant",
+  MA_BACKOFFICE: "Back-office MA",
+  RN: "RN",
+  PROVIDER: "Provider",
+  MA_PHARMACY: "MA - Pharmacy Team",
+  OTHER: "Other",
   ADMIN: "Administrator",
 }
 

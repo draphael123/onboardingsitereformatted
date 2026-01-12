@@ -116,7 +116,7 @@ export default async function AdminDashboardPage() {
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-5">
-            {["ADMIN", "CS", "NP", "RN", "MA"].map((role) => {
+            {["ADMIN", "CS", "MA_BACKOFFICE", "RN", "PROVIDER", "MA_PHARMACY", "OTHER"].map((role) => {
               const stat = stats.roleStats.find((s) => s.role === role)
               return (
                 <div key={role} className="flex flex-col items-center p-4 rounded-lg bg-muted/50">

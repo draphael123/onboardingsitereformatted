@@ -271,7 +271,7 @@ export function TemplatesManager({ templates: initialTemplates }: TemplatesManag
     })
   }
 
-  const roles: Role[] = ["CS", "NP", "RN", "MA"]
+  const roles: Role[] = ["CS", "MA_BACKOFFICE", "RN", "PROVIDER", "MA_PHARMACY", "OTHER"]
 
   return (
     <div className="space-y-6">
