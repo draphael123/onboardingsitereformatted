@@ -113,3 +113,4 @@ export function calculateProgress(checklist: {
   return { total, completed, inProgress, notStarted, percentage }
 }
 
+
