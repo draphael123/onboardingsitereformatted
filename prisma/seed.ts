@@ -148,8 +148,8 @@ async function main() {
       ],
     },
     {
-      role: "NP",
-      title: "Nurse Practitioner Onboarding",
+      role: "PROVIDER",
+      title: "Provider Onboarding",
       sections: [
         {
           title: "Company Basics",
@@ -364,8 +364,8 @@ async function main() {
       ],
     },
     {
-      role: "MA",
-      title: "Medical Assistant Onboarding",
+      role: "MA_BACKOFFICE",
+      title: "Back-office MA Onboarding",
       sections: [
         {
           title: "Company Basics",

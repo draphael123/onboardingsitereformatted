@@ -10,14 +10,14 @@ const signUpSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   password: z.string().min(8, "Password must be at least 8 characters"),
-  role: z.enum(["CS", "NP", "RN", "MA"]),
+  role: z.enum(["CS", "MA_BACKOFFICE", "RN", "PROVIDER", "MA_PHARMACY", "OTHER"]),
 })
 
 export async function signUp(data: {
   name: string
   email: string
   password: string
-  role: "CS" | "NP" | "RN" | "MA"
+  role: "CS" | "MA_BACKOFFICE" | "RN" | "PROVIDER" | "MA_PHARMACY" | "OTHER"
 }) {
   try {
     // Validate input
