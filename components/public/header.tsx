@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Shield } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { FountainLogo } from "@/components/ui/fountain-logo"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
@@ -47,7 +47,13 @@ export function PublicHeader() {
             <SearchCommand />
           </div>
           <ThemeToggle />
-          <div className="hidden md:flex ml-2 pl-2 border-l">
+          <div className="hidden md:flex items-center gap-2 ml-2 pl-2 border-l">
+            <Button asChild variant="outline" size="sm" className="gap-1.5">
+              <Link href="/admin">
+                <Shield className="h-4 w-4" />
+                Admin
+              </Link>
+            </Button>
             <Button asChild>
               <Link href="/login">Sign In</Link>
             </Button>
@@ -95,6 +101,12 @@ export function PublicHeader() {
             </Button>
             <Button asChild variant="outline" className="w-full" size="lg">
               <Link href="/signup">Create Account</Link>
+            </Button>
+            <Button asChild variant="ghost" className="w-full" size="lg">
+              <Link href="/admin" className="gap-2">
+                <Shield className="h-4 w-4" />
+                Admin Login
+              </Link>
             </Button>
           </div>
         </nav>
