@@ -14,11 +14,11 @@ datasource db {
 enum Role {
   ADMIN
   CS
-  NP
-  RN
-  MA
-  MA_PHARMACY
   MA_BACKOFFICE
+  RN
+  PROVIDER
+  MA_PHARMACY
+  OTHER
 }
 
 enum UserStatus {

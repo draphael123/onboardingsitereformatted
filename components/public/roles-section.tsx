@@ -7,10 +7,10 @@ import { ScrollReveal } from "@/components/ui/scroll-reveal"
 
 const roles = [
   { name: "Customer Service", abbr: "CS", color: "from-blue-500 to-blue-600", hasTraining: false },
-  { name: "Nurse Practitioners", abbr: "NP", color: "from-purple-500 to-purple-600", hasTraining: false },
-  { name: "Registered Nurses", abbr: "RN", color: "from-rose-500 to-rose-600", hasTraining: true },
+  { name: "Back-office MA", abbr: "MA", subtitle: "Back Office", color: "from-purple-500 to-purple-600", hasTraining: false },
+  { name: "RN", abbr: "RN", color: "from-rose-500 to-rose-600", hasTraining: true },
+  { name: "Provider", abbr: "NP", color: "from-emerald-500 to-emerald-600", hasTraining: false },
   { name: "MA - Pharmacy Team", abbr: "MA", subtitle: "Pharmacy", color: "from-amber-500 to-amber-600", hasTraining: false },
-  { name: "MA - Back Office", abbr: "MA", subtitle: "Back Office", color: "from-orange-500 to-orange-600", hasTraining: false },
 ]
 
 export function RolesSection() {

@@ -16,11 +16,11 @@ import { signUp } from "./actions"
 
 const roles = [
   { value: "CS", label: "Customer Service" },
-  { value: "NP", label: "Nurse Practitioner" },
-  { value: "RN", label: "Registered Nurse" },
-  { value: "MA", label: "Medical Assistant" },
-  { value: "MA_PHARMACY", label: "Medical Assistant - Pharmacy Team" },
-  { value: "MA_BACKOFFICE", label: "Medical Assistant - Back Office" },
+  { value: "MA_BACKOFFICE", label: "Back-office MA" },
+  { value: "RN", label: "RN" },
+  { value: "PROVIDER", label: "Provider" },
+  { value: "MA_PHARMACY", label: "MA - Pharmacy Team" },
+  { value: "OTHER", label: "Other" },
 ]
 
 export default function SignUpPage() {
@@ -70,7 +70,7 @@ export default function SignUpPage() {
         name,
         email: email.toLowerCase(),
         password,
-        role: role as "CS" | "NP" | "RN" | "MA" | "MA_PHARMACY" | "MA_BACKOFFICE",
+        role: role as "CS" | "MA_BACKOFFICE" | "RN" | "PROVIDER" | "MA_PHARMACY" | "OTHER",
       })
 
       if (result.success) {

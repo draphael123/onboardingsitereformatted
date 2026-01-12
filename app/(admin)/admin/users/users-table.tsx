@@ -71,16 +71,16 @@ interface UsersTableProps {
   users: UserWithChecklist[]
 }
 
-const roles: Role[] = ["ADMIN", "CS", "NP", "RN", "MA", "MA_PHARMACY", "MA_BACKOFFICE"]
+const roles: Role[] = ["ADMIN", "CS", "MA_BACKOFFICE", "RN", "PROVIDER", "MA_PHARMACY", "OTHER"]
 
 const roleLabels: Record<Role, string> = {
   ADMIN: "Admin",
   CS: "Customer Service",
-  NP: "Nurse Practitioner",
-  RN: "Registered Nurse",
-  MA: "Medical Assistant",
-  MA_PHARMACY: "MA - Pharmacy",
-  MA_BACKOFFICE: "MA - Back Office",
+  MA_BACKOFFICE: "Back-office MA",
+  RN: "RN",
+  PROVIDER: "Provider",
+  MA_PHARMACY: "MA - Pharmacy Team",
+  OTHER: "Other",
 }
 
 function calculateProgress(checklist: UserWithChecklist["checklist"]) {
