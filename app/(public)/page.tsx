@@ -19,16 +19,9 @@ import {
   Mail,
   ExternalLink,
   FileText,
-  Wrench,
   MessageSquare,
-  Calendar,
   CreditCard,
-  Stethoscope,
-  ClipboardList,
-  Video,
-  Headphones,
-  Database,
-  Lock
+  Stethoscope
 } from "lucide-react"
 
 const tools = [
@@ -52,27 +45,6 @@ const tools = [
     url: "https://gusto.com",
     icon: CreditCard,
     color: "from-emerald-500 to-emerald-600",
-  },
-  {
-    name: "When I Work",
-    description: "Employee scheduling and time tracking",
-    url: "https://wheniwork.com",
-    icon: Calendar,
-    color: "from-purple-500 to-purple-600",
-  },
-  {
-    name: "Fountain Platform",
-    description: "Internal patient management system",
-    url: "#",
-    icon: Database,
-    color: "from-teal-500 to-teal-600",
-  },
-  {
-    name: "Training Portal",
-    description: "Access training videos and certification materials",
-    url: "#",
-    icon: Video,
-    color: "from-rose-500 to-rose-600",
   },
 ]
 
