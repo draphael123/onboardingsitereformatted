@@ -47,7 +47,7 @@ const defaultFaqs = [
   {
     id: "6",
     question: "Who do I contact if I have questions during onboarding?",
-    answer: "You can reach out to our HR team at support@fountain.net or use the contact form on our Contact page. Our team provides 24/7 support, and your direct supervisor will also be introduced during orientation.",
+    answer: "For general onboarding questions, contact Daniel Raphael. For scheduling questions, reach out to Ashley Gwinn. For payroll and Gusto questions, contact Tammy Hale.",
     category: "Support",
   },
   {
@@ -85,6 +85,102 @@ const defaultFaqs = [
     question: "How do I reset my password?",
     answer: "Click 'Forgot Password' on the login page and enter your email address. You'll receive a password reset link within a few minutes. If you don't see the email, check your spam folder or contact support.",
     category: "Support",
+  },
+  {
+    id: "13",
+    question: "What is HRT and who is it for?",
+    answer: "Hormone Replacement Therapy (HRT) is designed primarily for women experiencing peri-menopause or menopause symptoms such as hot flashes, brain fog, mood swings, and low energy. Our providers create customized hormone therapy plans based on individual lab results and symptoms.",
+    category: "Medical",
+  },
+  {
+    id: "14",
+    question: "What tools and platforms will I use?",
+    answer: "You'll primarily use Heidi Health for clinical documentation and chart prep, Intercom for customer messaging and support, and Gusto for payroll and HR management. Training on each platform is included in your onboarding.",
+    category: "Onboarding",
+  },
+  {
+    id: "15",
+    question: "How do I view my schedule?",
+    answer: "Your schedule is managed by Ashley Gwinn. Contact her directly for any scheduling questions, shift swaps, or time-off requests.",
+    category: "Careers",
+  },
+  {
+    id: "16",
+    question: "How does payroll work at Fountain?",
+    answer: "Payroll is processed through Gusto. You'll receive access to your Gusto account during onboarding where you can view pay stubs, update tax information, and manage direct deposit. For payroll questions, contact Tammy Hale.",
+    category: "Careers",
+  },
+  {
+    id: "17",
+    question: "What is Heidi Health and how do I use it?",
+    answer: "Heidi Health is our AI-powered clinical documentation platform used for chart prep and medical documentation. It helps streamline the documentation process for providers. For Heidi-related questions, contact Dawntaya Cooley (Taya).",
+    category: "Services",
+  },
+  {
+    id: "18",
+    question: "Who do I contact for clinical questions?",
+    answer: "For HRT clinical questions, contact Summer. For TRT clinical questions, contact Bill. For GLP clinical questions, contact Terray. For async questions, reach out to Summer or Terray.",
+    category: "Medical",
+  },
+  {
+    id: "19",
+    question: "What is the member experience like?",
+    answer: "Members enjoy a fully concierge experience: they start with an online consultation, complete lab work at a convenient location, receive a personalized treatment plan, and have medications shipped directly to their door. Our 24/7 support team is available via text for any questions.",
+    category: "Services",
+  },
+  {
+    id: "20",
+    question: "How do I handle Intercom and customer inquiries?",
+    answer: "Intercom is our main customer messaging platform. For questions about Intercom workflows or shift supervisor questions, contact Camryn. Training on Intercom best practices is included in your onboarding.",
+    category: "Support",
+  },
+  {
+    id: "21",
+    question: "What happens after I complete onboarding?",
+    answer: "After completing your onboarding checklist, you'll be fully integrated into your team and ready to start your regular responsibilities. You'll have ongoing access to resources, and your supervisor will provide continued support as you settle into your role.",
+    category: "Onboarding",
+  },
+  {
+    id: "22",
+    question: "Who handles clearances and compliance?",
+    answer: "For clearance-related questions and compliance verification, contact Tzvi. They handle all background checks, licensing verification, and regulatory compliance matters.",
+    category: "Careers",
+  },
+  {
+    id: "23",
+    question: "What if I experience technical issues?",
+    answer: "For any platform issues, technical problems, or system access issues, contact Daniel Raphael. He handles all technical support and can help troubleshoot any problems you encounter.",
+    category: "Support",
+  },
+  {
+    id: "24",
+    question: "What is PMP and refill compliance?",
+    answer: "PMP (Prescription Monitoring Program) compliance is crucial for controlled substance prescriptions. For any PMP or refill compliance questions, contact Lindsay who oversees our compliance protocols.",
+    category: "Medical",
+  },
+  {
+    id: "25",
+    question: "How are medications shipped to members?",
+    answer: "Medications are shipped directly from our partner pharmacies to members' homes. Shipping is included in the membership, and members can track their shipments. Most orders arrive within 3-5 business days.",
+    category: "Services",
+  },
+  {
+    id: "26",
+    question: "What should I do if a member has an urgent concern?",
+    answer: "For urgent member concerns, follow the escalation protocol outlined in your training. Members with medical emergencies should always be directed to call 911 or visit their nearest emergency room.",
+    category: "Medical",
+  },
+  {
+    id: "27",
+    question: "Is Fountain available in all states?",
+    answer: "Fountain is licensed to operate in most US states, but availability varies. Our team can help members determine if services are available in their location during the initial consultation.",
+    category: "Services",
+  },
+  {
+    id: "28",
+    question: "What makes Fountain different from other telehealth providers?",
+    answer: "Fountain stands out with our concierge 24/7 text support, all-inclusive membership pricing, personalized treatment plans, and premium member experience. Our providers are specialists in hormone therapy, ensuring expert care for every member.",
+    category: "Services",
   },
 ]
 
