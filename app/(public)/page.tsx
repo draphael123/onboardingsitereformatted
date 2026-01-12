@@ -356,6 +356,40 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Onboarding CTA Section */}
+      <section className="py-16 md:py-24 bg-gradient-to-br from-teal-500/10 via-blue-500/10 to-purple-500/10">
+        <div className="container px-4 md:px-6">
+          <ScrollReveal animation="scale">
+            <div className="max-w-4xl mx-auto">
+              <Card className="glass-card overflow-hidden border-2 border-primary/20">
+                <CardContent className="p-8 md:p-12">
+                  <div className="flex flex-col md:flex-row items-center gap-8">
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-2xl bg-gradient-to-br from-teal-500 to-blue-500 flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <BookOpen className="h-10 w-10 md:h-12 md:w-12 text-white" />
+                    </div>
+                    <div className="flex-1 text-center md:text-left">
+                      <h2 className="font-display text-2xl md:text-3xl font-bold mb-3">
+                        Onboarding & Getting Started
+                      </h2>
+                      <p className="text-muted-foreground mb-6">
+                        New to Fountain? Access your personalized onboarding checklist, training materials, 
+                        and everything you need to get started on your journey with us.
+                      </p>
+                      <Button size="lg" asChild className="group bg-gradient-to-r from-teal-500 to-blue-500 hover:from-teal-600 hover:to-blue-600 border-0 shadow-lg">
+                        <Link href="/login">
+                          Start Onboarding
+                          <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                        </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
       {/* Tools Section */}
       <section className="py-20 md:py-32">
         <div className="container px-4 md:px-6">
