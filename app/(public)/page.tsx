@@ -148,12 +148,16 @@ const programs = [
     title: "Testosterone Replacement Therapy (TRT)",
     description: "Tailored for men seeking to restore testosterone levels. Our TRT program enhances muscle mass, reduces body fat, boosts energy, and improves libido.",
     gradient: "from-blue-500 to-teal-500",
+    url: "https://www.fountain.net/trt",
+    buttonText: "Learn About TRT",
   },
   {
     icon: Heart,
     title: "Hormone Replacement Therapy (HRT)",
     description: "Designed for women experiencing peri/menopause symptoms. Our HRT program alleviates brain fog, hot flashes, and low energy with customized hormone therapy.",
     gradient: "from-rose-500 to-pink-500",
+    url: "https://www.fountain.net/hrt",
+    buttonText: "Learn About HRT",
   },
 ]
 
@@ -280,15 +284,24 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {programs.map((program, index) => (
               <ScrollReveal key={program.title} animation={index === 0 ? "slide-left" : "slide-right"} delay={index * 100}>
-                <Card className="glass-card overflow-hidden group">
-                  <CardContent className="p-8">
+                <Card className="glass-card overflow-hidden group h-full">
+                  <CardContent className="p-8 flex flex-col h-full">
                     <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${program.gradient} flex items-center justify-center text-white mb-6 group-hover:scale-110 transition-transform duration-300`}>
                       <program.icon className="h-8 w-8" />
                     </div>
                     <h3 className="font-semibold text-2xl mb-4">{program.title}</h3>
-                    <p className="text-muted-foreground text-lg leading-relaxed">
+                    <p className="text-muted-foreground text-lg leading-relaxed mb-6 flex-grow">
                       {program.description}
                     </p>
+                    <a
+                      href={program.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg bg-gradient-to-r ${program.gradient} text-white font-medium hover:opacity-90 transition-opacity shadow-lg`}
+                    >
+                      {program.buttonText}
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
                   </CardContent>
                 </Card>
               </ScrollReveal>
