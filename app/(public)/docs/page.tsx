@@ -52,30 +52,6 @@ async function getPublicDocs(): Promise<PublicDoc[]> {
         category: "Compliance",
         order: 0,
       },
-      {
-        id: "4",
-        title: "Safety Protocols",
-        description: "Workplace safety guidelines, emergency procedures, and incident reporting information.",
-        url: "#",
-        category: "Safety",
-        order: 0,
-      },
-      {
-        id: "5",
-        title: "Benefits Overview",
-        description: "Summary of employee benefits including health insurance, retirement plans, and PTO policies.",
-        url: "#",
-        category: "HR",
-        order: 0,
-      },
-      {
-        id: "6",
-        title: "IT Security Policy",
-        description: "Guidelines for maintaining data security, password policies, and acceptable use of company systems.",
-        url: "#",
-        category: "IT",
-        order: 0,
-      },
     ]
   }
 }
