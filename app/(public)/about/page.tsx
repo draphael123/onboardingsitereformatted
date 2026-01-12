@@ -49,9 +49,9 @@ const differentiators = [
 ]
 
 const stats = [
-  { number: "7,000+", label: "Satisfied Members" },
+  { number: "9,000+", label: "Active Members" },
   { number: "24/7", label: "Concierge Support" },
-  { number: "10+", label: "Years Experience" },
+  { number: "5+", label: "Years Experience" },
   { number: "100%", label: "Personalized Care" },
 ]
 
@@ -94,7 +94,7 @@ export default function AboutPage() {
                 healthcare visits.
               </p>
               <p className="text-muted-foreground">
-                Join over 7,000 satisfied members who have experienced the Fountain 
+                Join over 9,000 active members who have experienced the Fountain 
                 difference and taken the first step towards optimal health.
               </p>
             </div>

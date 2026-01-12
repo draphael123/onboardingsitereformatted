@@ -167,10 +167,10 @@ const reviews = [
 ]
 
 const stats = [
-  { value: 7000, suffix: "+", label: "Happy Members" },
+  { value: 9000, suffix: "+", label: "Active Members" },
   { value: 24, suffix: "/7", label: "Support Available" },
   { value: 98, suffix: "%", label: "Satisfaction Rate" },
-  { value: 10, suffix: "+", label: "Years Experience" },
+  { value: 5, suffix: "+", label: "Years Experience" },
 ]
 
 export default function HomePage() {
@@ -292,7 +292,7 @@ export default function HomePage() {
                 What Our <span className="gradient-text">Members</span> Say
               </h2>
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                Join over 7,000+ satisfied members who have experienced the Fountain difference. 
+                Join over 9,000+ active members who have experienced the Fountain difference. 
                 Real reviews from Trustpilot.
               </p>
             </div>
