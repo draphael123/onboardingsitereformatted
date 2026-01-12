@@ -43,8 +43,8 @@ export default function LoginPage() {
           title: "Welcome back!",
           description: "Redirecting to your dashboard...",
         })
-        router.push("/app")
-        router.refresh()
+        // Use window.location for hard redirect to ensure session is picked up
+        window.location.href = "/app"
       }
     } catch {
       toast({
