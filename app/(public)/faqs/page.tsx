@@ -277,15 +277,9 @@ export default function FAQsPage() {
             <h2 className="font-display text-2xl md:text-3xl font-bold mb-4">
               Still Have Questions?
             </h2>
-            <p className="text-muted-foreground mb-6">
-              Can&apos;t find what you&apos;re looking for? Our team is here to help.
+            <p className="text-muted-foreground">
+              Please contact Daniel Raphael if you need assistance.
             </p>
-            <a 
-              href="/contact" 
-              className="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-6"
-            >
-              Contact Us
-            </a>
           </div>
         </div>
       </section>
