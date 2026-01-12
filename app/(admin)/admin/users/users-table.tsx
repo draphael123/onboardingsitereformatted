@@ -71,7 +71,17 @@ interface UsersTableProps {
   users: UserWithChecklist[]
 }
 
-const roles: Role[] = ["ADMIN", "CS", "NP", "RN", "MA"]
+const roles: Role[] = ["ADMIN", "CS", "NP", "RN", "MA", "MA_PHARMACY", "MA_BACKOFFICE"]
+
+const roleLabels: Record<Role, string> = {
+  ADMIN: "Admin",
+  CS: "Customer Service",
+  NP: "Nurse Practitioner",
+  RN: "Registered Nurse",
+  MA: "Medical Assistant",
+  MA_PHARMACY: "MA - Pharmacy",
+  MA_BACKOFFICE: "MA - Back Office",
+}
 
 function calculateProgress(checklist: UserWithChecklist["checklist"]) {
   if (!checklist) return { completed: 0, total: 0, percentage: 0 }
@@ -308,18 +318,18 @@ export function UsersTable({ users: initialUsers }: UsersTableProps) {
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="role">Role</Label>
-                    <Select name="role" defaultValue="CS">
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select role" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {roles.map((role) => (
-                          <SelectItem key={role} value={role}>
-                            {role}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                                    <Select name="role" defaultValue="CS">
+                                      <SelectTrigger>
+                                        <SelectValue placeholder="Select role" />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        {roles.map((role) => (
+                                          <SelectItem key={role} value={role}>
+                                            {roleLabels[role]}
+                                          </SelectItem>
+                                        ))}
+                                      </SelectContent>
+                                    </Select>
                   </div>
                 </div>
                 <DialogFooter>
@@ -358,7 +368,7 @@ export function UsersTable({ users: initialUsers }: UsersTableProps) {
             <tr className="border-b bg-muted/50">
               <th className="h-12 px-4 text-left align-middle font-medium">Name</th>
               <th className="h-12 px-4 text-left align-middle font-medium">Email</th>
-              <th className="h-12 px-4 text-left align-middle font-medium">Role</th>
+              <th className="h-12 px-4 text-left align-middle font-medium">Team</th>
               <th className="h-12 px-4 text-left align-middle font-medium">Status</th>
               <th className="h-12 px-4 text-left align-middle font-medium">Progress</th>
               <th className="h-12 px-4 text-left align-middle font-medium">Created</th>
@@ -381,7 +391,7 @@ export function UsersTable({ users: initialUsers }: UsersTableProps) {
                     <td className="p-4 font-medium">{user.name || "-"}</td>
                     <td className="p-4 text-muted-foreground">{user.email}</td>
                     <td className="p-4">
-                      <Badge variant="secondary">{user.role}</Badge>
+                      <Badge variant="secondary">{roleLabels[user.role] || user.role}</Badge>
                     </td>
                     <td className="p-4">
                       <Badge variant={statusConfig[user.status].variant} className="gap-1">
@@ -492,7 +502,7 @@ export function UsersTable({ users: initialUsers }: UsersTableProps) {
                                   />
                                 </div>
                                 <div className="space-y-2">
-                                  <Label htmlFor="edit-role">Role</Label>
+                                  <Label htmlFor="edit-role">Role / Team</Label>
                                   <Select name="role" defaultValue={editingUser?.role}>
                                     <SelectTrigger>
                                       <SelectValue placeholder="Select role" />
@@ -500,7 +510,7 @@ export function UsersTable({ users: initialUsers }: UsersTableProps) {
                                     <SelectContent>
                                       {roles.map((role) => (
                                         <SelectItem key={role} value={role}>
-                                          {role}
+                                          {roleLabels[role]}
                                         </SelectItem>
                                       ))}
                                     </SelectContent>
