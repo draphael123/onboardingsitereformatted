@@ -15,10 +15,12 @@ import { Loader2, ArrowLeft, Info } from "lucide-react"
 import { signUp } from "./actions"
 
 const roles = [
-  { value: "CS", label: "Customer Service (CS)" },
-  { value: "NP", label: "Nurse Practitioner (NP)" },
-  { value: "RN", label: "Registered Nurse (RN)" },
-  { value: "MA", label: "Medical Assistant (MA)" },
+  { value: "CS", label: "Customer Service" },
+  { value: "NP", label: "Nurse Practitioner" },
+  { value: "RN", label: "Registered Nurse" },
+  { value: "MA", label: "Medical Assistant" },
+  { value: "MA_PHARMACY", label: "Medical Assistant - Pharmacy Team" },
+  { value: "MA_BACKOFFICE", label: "Medical Assistant - Back Office" },
 ]
 
 export default function SignUpPage() {
@@ -68,7 +70,7 @@ export default function SignUpPage() {
         name,
         email: email.toLowerCase(),
         password,
-        role: role as "CS" | "NP" | "RN" | "MA",
+        role: role as "CS" | "NP" | "RN" | "MA" | "MA_PHARMACY" | "MA_BACKOFFICE",
       })
 
       if (result.success) {
@@ -161,10 +163,10 @@ export default function SignUpPage() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="role">Role</Label>
+                <Label htmlFor="role">What role were you hired for?</Label>
                 <Select value={role} onValueChange={setRole} disabled={isLoading}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select your role" />
+                    <SelectValue placeholder="Select your role..." />
                   </SelectTrigger>
                   <SelectContent>
                     {roles.map((r) => (

@@ -17,6 +17,8 @@ enum Role {
   NP
   RN
   MA
+  MA_PHARMACY
+  MA_BACKOFFICE
 }
 
 enum UserStatus {
