@@ -84,10 +84,10 @@ export function AppHeader({ user, notifications = [], unreadCount = 0 }: AppHead
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md transition-colors",
+                  "flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-colors",
                   pathname === item.href
-                    ? "bg-accent text-accent-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                    ? "bg-fountain-500/10 text-fountain-600 dark:text-fountain-400"
+                    : "text-muted-foreground hover:text-fountain-600 dark:hover:text-fountain-400 hover:bg-fountain-50 dark:hover:bg-fountain-950/50"
                 )}
               >
                 <item.icon className="h-4 w-4" />
@@ -130,7 +130,7 @@ export function AppHeader({ user, notifications = [], unreadCount = 0 }: AppHead
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                 <Avatar className="h-10 w-10">
-                  <AvatarFallback className="bg-primary text-primary-foreground">
+                  <AvatarFallback className="bg-gradient-to-br from-fountain-500 to-ocean-500 text-white">
                     {initials}
                   </AvatarFallback>
                 </Avatar>
@@ -178,7 +178,7 @@ export function AppHeader({ user, notifications = [], unreadCount = 0 }: AppHead
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden p-2 rounded-md hover:bg-accent"
+            className="md:hidden p-2 rounded-md hover:bg-fountain-50 dark:hover:bg-fountain-950/50"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -202,8 +202,8 @@ export function AppHeader({ user, notifications = [], unreadCount = 0 }: AppHead
               className={cn(
                 "flex items-center gap-3 px-4 py-4 text-lg font-medium rounded-lg transition-all",
                 pathname === item.href
-                  ? "bg-accent text-accent-foreground"
-                  : "text-foreground hover:bg-accent/50",
+                  ? "bg-fountain-500/10 text-fountain-600 dark:text-fountain-400"
+                  : "text-foreground hover:bg-fountain-50 dark:hover:bg-fountain-950/50",
                 "transform transition-all duration-300",
                 isMenuOpen 
                   ? "translate-x-0 opacity-100" 
@@ -221,7 +221,7 @@ export function AppHeader({ user, notifications = [], unreadCount = 0 }: AppHead
               href="/admin"
               className={cn(
                 "flex items-center gap-3 px-4 py-4 text-lg font-medium rounded-lg transition-all",
-                "text-foreground hover:bg-accent/50",
+                "text-foreground hover:bg-fountain-50 dark:hover:bg-fountain-950/50",
                 "transform transition-all duration-300",
                 isMenuOpen ? "translate-x-0 opacity-100" : "-translate-x-4 opacity-0",
               )}

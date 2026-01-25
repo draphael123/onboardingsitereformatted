@@ -1,7 +1,13 @@
+import { Metadata } from "next"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { getUserChecklist, calculateProgress } from "@/lib/checklist"
 import { ChecklistView } from "./checklist-view"
+
+export const metadata: Metadata = {
+  title: "Onboarding Checklist | Fountain Vitality",
+  description: "Track and complete your onboarding tasks and training requirements.",
+}
 
 export default async function ChecklistPage() {
   const session = await auth()

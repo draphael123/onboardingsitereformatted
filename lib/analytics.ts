@@ -21,9 +21,9 @@ export interface AnalyticsMetadata {
  * Track an analytics event
  */
 export async function trackEvent(
-  type: AnalyticsEventType,
+  type: AnalyticsEventType | string,
   userId?: string,
-  metadata?: AnalyticsMetadata
+  metadata?: AnalyticsMetadata | Record<string, unknown>
 ) {
   try {
     await db.analyticsEvent.create({
@@ -35,7 +35,9 @@ export async function trackEvent(
     })
   } catch (error) {
     // Silently fail analytics tracking to not break user experience
-    console.error("Analytics tracking error:", error)
+    if (process.env.NODE_ENV === "development") {
+      console.error("Analytics tracking error:", error)
+    }
   }
 }
 
@@ -57,6 +59,35 @@ export async function getEventStats(
 
   return await db.analyticsEvent.findMany({
     where,
+    orderBy: { createdAt: "desc" },
+  })
+}
+
+/**
+ * Get analytics stats for admin dashboard
+ */
+export async function getAnalyticsStats() {
+  const [totalEvents, pageViews, checklistCompletions, logins] = await Promise.all([
+    db.analyticsEvent.count(),
+    db.analyticsEvent.count({ where: { type: "page_view" } }),
+    db.analyticsEvent.count({ where: { type: "checklist_complete" } }),
+    db.analyticsEvent.count({ where: { type: "login" } }),
+  ])
+
+  return {
+    totalEvents,
+    pageViews,
+    checklistCompletions,
+    logins,
+  }
+}
+
+/**
+ * Get recent analytics events
+ */
+export async function getRecentEvents(limit = 50) {
+  return db.analyticsEvent.findMany({
+    take: limit,
     orderBy: { createdAt: "desc" },
   })
 }
@@ -334,4 +365,3 @@ export async function getCompletionTrends(days: number = 30) {
     }))
     .sort((a, b) => a.week.localeCompare(b.week))
 }
-

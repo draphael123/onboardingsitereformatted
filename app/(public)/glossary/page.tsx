@@ -1,5 +1,6 @@
 "use client"
 
+import { Metadata } from "next"
 import { useState, useMemo } from "react"
 import { Book, Search, ChevronDown } from "lucide-react"
 import { Input } from "@/components/ui/input"

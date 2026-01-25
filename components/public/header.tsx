@@ -13,7 +13,7 @@ const navItems = [
   { href: "/", label: "Home" },
   { href: "/programs", label: "Programs" },
   { href: "/about", label: "About Us" },
-  { href: "/organization", label: "Staff Directory" },
+  { href: "/staff", label: "Staff Directory" },
   { href: "/faqs", label: "FAQs" },
   { href: "/glossary", label: "Glossary" },
 ]
@@ -34,7 +34,7 @@ export function PublicHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground rounded-md hover:bg-accent"
+              className="px-4 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-fountain-600 dark:hover:text-fountain-400 rounded-md hover:bg-fountain-50 dark:hover:bg-fountain-950/50"
             >
               {item.label}
             </Link>
@@ -48,20 +48,20 @@ export function PublicHeader() {
           </div>
           <ThemeToggle />
           <div className="hidden md:flex items-center gap-2 ml-2 pl-2 border-l">
-            <Button asChild variant="outline" size="sm" className="gap-1.5">
+            <Button asChild variant="outline" size="sm" className="gap-1.5 hover:bg-fountain-50 dark:hover:bg-fountain-950/50 hover:text-fountain-600 dark:hover:text-fountain-400 hover:border-fountain-300">
               <Link href="/admin">
                 <Shield className="h-4 w-4" />
                 Admin
               </Link>
             </Button>
-            <Button asChild>
+            <Button asChild className="btn-aqua border-0">
               <Link href="/login">Sign In</Link>
             </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="lg:hidden p-2 rounded-md hover:bg-accent"
+            className="lg:hidden p-2 rounded-md hover:bg-fountain-50 dark:hover:bg-fountain-950/50"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -83,7 +83,7 @@ export function PublicHeader() {
               key={item.href}
               href={item.href}
               className={cn(
-                "px-4 py-4 text-lg font-medium text-foreground transition-all hover:bg-accent rounded-lg",
+                "px-4 py-4 text-lg font-medium text-foreground transition-all hover:bg-fountain-50 dark:hover:bg-fountain-950/50 rounded-lg",
                 "transform transition-all duration-300",
                 isMenuOpen 
                   ? "translate-x-0 opacity-100" 
@@ -96,13 +96,13 @@ export function PublicHeader() {
             </Link>
           ))}
           <div className="pt-6 mt-4 border-t space-y-3">
-            <Button asChild className="w-full" size="lg">
+            <Button asChild className="w-full btn-aqua border-0" size="lg">
               <Link href="/login">Sign In</Link>
             </Button>
-            <Button asChild variant="outline" className="w-full" size="lg">
+            <Button asChild variant="outline" className="w-full hover:bg-fountain-50 dark:hover:bg-fountain-950/50" size="lg">
               <Link href="/signup">Create Account</Link>
             </Button>
-            <Button asChild variant="ghost" className="w-full" size="lg">
+            <Button asChild variant="ghost" className="w-full hover:bg-fountain-50 dark:hover:bg-fountain-950/50" size="lg">
               <Link href="/admin" className="gap-2">
                 <Shield className="h-4 w-4" />
                 Admin Login

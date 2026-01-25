@@ -1,6 +1,12 @@
+import { Metadata } from "next"
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import Link from "next/link"
+
+export const metadata: Metadata = {
+  title: "Dashboard | Fountain Vitality",
+  description: "View your onboarding progress and upcoming tasks.",
+}
 import { getUserChecklist, calculateProgress } from "@/lib/checklist"
 import { db } from "@/lib/db"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -98,13 +104,13 @@ export default async function DashboardPage() {
       {/* Progress Overview */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
         <Card className="relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-20 h-20 bg-primary/10 rounded-full -mr-10 -mt-10" />
+          <div className="absolute top-0 right-0 w-20 h-20 bg-fountain-500/10 rounded-full -mr-10 -mt-10" />
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Progress</CardTitle>
-            <TrendingUp className="h-4 w-4 text-primary" />
+            <TrendingUp className="h-4 w-4 text-fountain-500" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-primary">{progress.percentage}%</div>
+            <div className="text-3xl font-bold text-fountain-600 dark:text-fountain-400">{progress.percentage}%</div>
             <Progress value={progress.percentage} className="mt-2 h-2" />
             <p className="text-xs text-muted-foreground mt-2">
               {progress.total - progress.completed} tasks remaining
@@ -157,10 +163,10 @@ export default async function DashboardPage() {
 
       {/* Achievement Banner */}
       {progress.percentage === 100 && (
-        <Card className="bg-gradient-to-r from-green-500/10 via-emerald-500/10 to-teal-500/10 border-green-500/20">
+        <Card className="bg-gradient-to-r from-fountain-500/10 via-ocean-500/10 to-fountain-500/10 border-fountain-500/20">
           <CardContent className="flex items-center gap-4 py-6">
-            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
-              <Trophy className="h-8 w-8 text-green-600" />
+            <div className="w-16 h-16 rounded-full bg-fountain-500/20 flex items-center justify-center">
+              <Trophy className="h-8 w-8 text-fountain-600" />
             </div>
             <div>
               <h3 className="font-semibold text-lg">Onboarding Complete! 🎉</h3>
@@ -280,7 +286,7 @@ export default async function DashboardPage() {
       </div>
 
       {/* CTA */}
-      <Card className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 border-primary/20">
+      <Card className="bg-gradient-to-r from-fountain-500/5 via-fountain-500/10 to-ocean-500/5 border-fountain-500/20">
         <CardContent className="flex flex-col md:flex-row items-center justify-between gap-4 py-6">
           <div>
             <h3 className="font-semibold text-lg">Ready to continue?</h3>
@@ -290,7 +296,7 @@ export default async function DashboardPage() {
                 : `You&apos;re ${progress.percentage}% through your onboarding. Keep up the great work!`}
             </p>
           </div>
-          <Button asChild size="lg" className="group">
+          <Button asChild size="lg" className="group btn-aqua border-0">
             <Link href="/app/checklist">
               {progress.percentage === 100 ? "View Checklist" : "Continue Checklist"}
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />

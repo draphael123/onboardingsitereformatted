@@ -391,6 +391,58 @@ export async function sendContactConfirmationEmail({ to, name, subject }: { to: 
 }
 
 // ============================================
+// Newsletter Confirmation Email
+// ============================================
+
+export async function sendNewsletterConfirmation(email: string): Promise<EmailResult> {
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head><meta charset="utf-8"></head>
+      <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f4f4f5;">
+        <table role="presentation" style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <td align="center" style="padding: 40px 0;">
+              <table role="presentation" style="width: 600px; max-width: 100%; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                <tr>
+                  <td style="padding: 40px 40px 20px; text-align: center; background: linear-gradient(135deg, #14b8a6, #3b82f6); border-radius: 12px 12px 0 0;">
+                    <h1 style="margin: 0; color: #ffffff; font-size: 28px;">You're Subscribed! 📬</h1>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 40px;">
+                    <p style="margin: 0 0 20px; font-size: 16px; color: #374151;">
+                      Thank you for subscribing to Fountain Vitality updates!
+                    </p>
+                    <p style="margin: 0 0 20px; font-size: 16px; color: #374151;">
+                      You'll now receive the latest updates on training materials, company news, and important announcements.
+                    </p>
+                    <p style="margin: 20px 0 0; font-size: 14px; color: #6b7280;">
+                      If you didn't subscribe, you can safely ignore this email.
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 30px 40px; background-color: #f9fafb; border-radius: 0 0 12px 12px; text-align: center;">
+                    <p style="margin: 0; font-size: 14px; color: #6b7280;">Fountain Vitality Inc.</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+    </html>
+  `
+
+  return sendEmail({
+    to: email,
+    subject: 'Welcome to Fountain Updates! 📬',
+    html,
+  })
+}
+
+// ============================================
 // Core Email Sending Function
 // ============================================
 

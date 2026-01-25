@@ -99,12 +99,12 @@ export default function SignUpPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col gradient-bg hero-pattern">
+    <div className="min-h-screen flex flex-col gradient-bg hero-pattern page-transition">
       {/* Header */}
       <header className="container px-4 py-6 flex items-center justify-between">
         <Link 
           href="/" 
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-fountain-600 dark:hover:text-fountain-400 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Home
@@ -114,9 +114,9 @@ export default function SignUpPage() {
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <Card className="w-full max-w-md shadow-xl">
+        <Card className="w-full max-w-md shadow-xl glass-card border-fountain-200/50 dark:border-fountain-800/50">
           <CardHeader className="text-center space-y-4 pb-2">
-            <div className="mx-auto w-14 h-14 rounded-xl bg-primary text-primary-foreground flex items-center justify-center">
+            <div className="mx-auto w-14 h-14 rounded-xl bg-gradient-to-br from-fountain-500 to-ocean-500 text-white flex items-center justify-center shadow-lg shadow-fountain-500/25">
               <FountainLogoIcon className="h-8 w-8" />
             </div>
             <div>
@@ -128,9 +128,9 @@ export default function SignUpPage() {
           </CardHeader>
           <CardContent className="pt-6">
             {/* Info Banner */}
-            <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-lg p-3 mb-6 flex gap-3">
-              <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
-              <p className="text-sm text-blue-700 dark:text-blue-300">
+            <div className="bg-fountain-50 dark:bg-fountain-950/30 border border-fountain-200 dark:border-fountain-900 rounded-lg p-3 mb-6 flex gap-3">
+              <Info className="h-5 w-5 text-fountain-600 dark:text-fountain-400 flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-fountain-700 dark:text-fountain-300">
                 Your account will need to be approved by an admin before you can access the onboarding portal.
               </p>
             </div>
@@ -206,7 +206,7 @@ export default function SignUpPage() {
                   autoComplete="new-password"
                 />
               </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button type="submit" className="w-full btn-aqua border-0" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Create Account
               </Button>
@@ -215,7 +215,7 @@ export default function SignUpPage() {
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
                 Already have an account?{" "}
-                <Link href="/login" className="text-primary hover:underline">
+                <Link href="/login" className="text-fountain-600 dark:text-fountain-400 hover:underline font-medium">
                   Sign in
                 </Link>
               </p>

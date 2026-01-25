@@ -88,12 +88,12 @@ function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col gradient-bg hero-pattern">
+    <div className="min-h-screen flex flex-col gradient-bg hero-pattern page-transition">
       {/* Header */}
       <header className="container px-4 py-6 flex items-center justify-between">
         <Link 
           href="/" 
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-fountain-600 dark:hover:text-fountain-400 transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
           Back to Home
@@ -103,9 +103,9 @@ function LoginForm() {
 
       {/* Main Content */}
       <main className="flex-1 flex items-center justify-center px-4 py-12">
-        <Card className="w-full max-w-md shadow-xl">
+        <Card className="w-full max-w-md shadow-xl glass-card border-fountain-200/50 dark:border-fountain-800/50">
           <CardHeader className="text-center space-y-4 pb-2">
-            <div className="mx-auto w-14 h-14 rounded-xl bg-primary text-primary-foreground flex items-center justify-center">
+            <div className="mx-auto w-14 h-14 rounded-xl bg-gradient-to-br from-fountain-500 to-ocean-500 text-white flex items-center justify-center shadow-lg shadow-fountain-500/25">
               <FountainLogoIcon className="h-8 w-8" />
             </div>
             <div>
@@ -151,7 +151,7 @@ function LoginForm() {
                   autoComplete="current-password"
                 />
               </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button type="submit" className="w-full btn-aqua border-0" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Sign In
               </Button>
@@ -160,13 +160,13 @@ function LoginForm() {
             <div className="mt-6 space-y-3 text-center">
               <p className="text-sm text-muted-foreground">
                 Don&apos;t have an account?{" "}
-                <Link href="/signup" className="text-primary hover:underline font-medium">
+                <Link href="/signup" className="text-fountain-600 dark:text-fountain-400 hover:underline font-medium">
                   Sign up
                 </Link>
               </p>
               <p className="text-sm text-muted-foreground">
                 Having trouble signing in?{" "}
-                <Link href="/contact" className="text-primary hover:underline">
+                <Link href="/contact" className="text-fountain-600 dark:text-fountain-400 hover:underline">
                   Contact HR
                 </Link>
               </p>

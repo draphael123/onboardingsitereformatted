@@ -20,8 +20,11 @@ import {
   ChevronRight,
   FileText,
   Printer,
-  Download
+  Download,
+  FileJson,
+  FileSpreadsheet
 } from "lucide-react"
+import { exportToCSV, exportToJSON, downloadFile } from "@/lib/export"
 import type { Role, ItemStatus } from "@prisma/client"
 
 interface ChecklistItem {
@@ -455,16 +458,50 @@ export function ChecklistView({ checklist, progress, userRole }: ChecklistViewPr
                   <span>{progress.notStarted} Not Started</span>
                 </div>
               </div>
-              {/* Print Button */}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handlePrint}
-                className="gap-2 print:hidden"
-              >
-                <Printer className="h-4 w-4" />
-                Print Checklist
-              </Button>
+              {/* Export Buttons */}
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handlePrint}
+                  className="gap-2 print:hidden"
+                >
+                  <Printer className="h-4 w-4" />
+                  Print
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const csv = exportToCSV({
+                      sections: checklist.sections,
+                      progress,
+                      userRole,
+                    })
+                    downloadFile(csv, `checklist-${userRole}-${new Date().toISOString().split('T')[0]}.csv`, 'text/csv')
+                  }}
+                  className="gap-2"
+                >
+                  <FileSpreadsheet className="h-4 w-4" />
+                  CSV
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    const json = exportToJSON({
+                      sections: checklist.sections,
+                      progress,
+                      userRole,
+                    })
+                    downloadFile(json, `checklist-${userRole}-${new Date().toISOString().split('T')[0]}.json`, 'application/json')
+                  }}
+                  className="gap-2"
+                >
+                  <FileJson className="h-4 w-4" />
+                  JSON
+                </Button>
+              </div>
             </div>
           </div>
           <Progress value={progress.percentage} className="mt-4 h-3" />
