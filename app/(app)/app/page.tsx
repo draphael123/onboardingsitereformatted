@@ -26,36 +26,37 @@ export default async function DashboardPage() {
     redirect("/login")
   }
 
-  const checklist = await getUserChecklist(session.user.id, session.user.role)
-  const progress = calculateProgress(checklist)
+  try {
+    const checklist = await getUserChecklist(session.user.id, session.user.role)
+    const progress = calculateProgress(checklist)
 
-  // Get upcoming due items
-  const upcomingItems = checklist?.sections
-    .flatMap((s) => s.items)
-    .filter((item) => item.dueDate && item.status !== "COMPLETE")
-    .sort((a, b) => {
-      if (!a.dueDate || !b.dueDate) return 0
-      return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
+    // Get upcoming due items
+    const upcomingItems = checklist?.sections
+      .flatMap((s) => s.items)
+      .filter((item) => item.dueDate && item.status !== "COMPLETE")
+      .sort((a, b) => {
+        if (!a.dueDate || !b.dueDate) return 0
+        return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime()
+      })
+      .slice(0, 5) || []
+
+    // Get recently completed items
+    const recentlyCompleted = checklist?.sections
+      .flatMap((s) => s.items)
+      .filter((item) => item.status === "COMPLETE" && item.completedAt)
+      .sort((a, b) => {
+        if (!a.completedAt || !b.completedAt) return 0
+        return new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime()
+      })
+      .slice(0, 5) || []
+
+    // Get unread notifications count
+    const unreadNotifications = await db.notification.count({
+      where: {
+        userId: session.user.id,
+        read: false,
+      },
     })
-    .slice(0, 5) || []
-
-  // Get recently completed items
-  const recentlyCompleted = checklist?.sections
-    .flatMap((s) => s.items)
-    .filter((item) => item.status === "COMPLETE" && item.completedAt)
-    .sort((a, b) => {
-      if (!a.completedAt || !b.completedAt) return 0
-      return new Date(b.completedAt).getTime() - new Date(a.completedAt).getTime()
-    })
-    .slice(0, 5) || []
-
-  // Get unread notifications count
-  const unreadNotifications = await db.notification.count({
-    where: {
-      userId: session.user.id,
-      read: false,
-    },
-  })
 
   // Calculate streak (consecutive days with completed items)
   const today = new Date()
@@ -298,5 +299,35 @@ export default async function DashboardPage() {
         </CardContent>
       </Card>
     </div>
-  )
+    )
+  } catch (error) {
+    console.error("Error loading dashboard:", error)
+    // Return a basic dashboard with error message
+    return (
+      <div className="space-y-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h1 className="font-display text-3xl font-bold">
+              Welcome back, {session.user.name?.split(" ")[0] || "there"}!
+            </h1>
+            <p className="text-muted-foreground mt-1">
+              ✨ Let's begin your onboarding journey!
+            </p>
+          </div>
+        </div>
+        <Card className="border-destructive">
+          <CardContent className="pt-6">
+            <div className="text-center py-8">
+              <p className="text-muted-foreground mb-4">
+                Unable to load dashboard data. Please try refreshing the page.
+              </p>
+              <Button asChild>
+                <Link href="/app/checklist">Go to Checklist</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    )
+  }
 }
