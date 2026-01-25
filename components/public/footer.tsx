@@ -14,7 +14,7 @@ import {
   ExternalLink,
   ArrowRight,
   Linkedin,
-  Building2
+  Building2,
   Twitter,
   Instagram,
   Facebook
