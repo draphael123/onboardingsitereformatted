@@ -25,7 +25,7 @@ export function PublicFooter() {
               </li>
               <li>
                 <Link href="/organization" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Organization Chart
+                  Staff Directory
                 </Link>
               </li>
               <li>

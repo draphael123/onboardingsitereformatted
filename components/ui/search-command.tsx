@@ -86,7 +86,7 @@ export function SearchCommand({ isAdmin = false, isAuthenticated = false }: Sear
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => router.push("/organization"))}>
               <Users className="mr-2 h-4 w-4" />
-              Organization Chart
+              Staff Directory
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => router.push("/faqs"))}>
               <HelpCircle className="mr-2 h-4 w-4" />

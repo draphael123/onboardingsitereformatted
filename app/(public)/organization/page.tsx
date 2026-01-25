@@ -14,7 +14,7 @@ import {
 } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "Organization Chart | Fountain Vitality",
+  title: "Staff Directory | Fountain Vitality",
   description: "View our organizational structure and team hierarchy at Fountain Vitality.",
 }
 
@@ -111,7 +111,7 @@ export default async function OrganizationPage() {
               <Building2 className="h-8 w-8" />
             </div>
             <h1 className="font-display text-4xl md:text-5xl font-bold tracking-tight mb-6">
-              Organization <span className="text-primary">Chart</span>
+              Staff <span className="text-primary">Directory</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground">
               Explore our organizational structure and find team members by role and department.
