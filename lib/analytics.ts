@@ -88,12 +88,14 @@ export async function getUserCompletionTime(userId: string) {
   if (completedItems.length === 0) return null
 
   const firstCompletion = completedItems
-    .map((i: { completedAt: Date }) => i.completedAt!)
-    .sort((a: Date, b: Date) => new Date(a).getTime() - new Date(b).getTime())[0]
+    .map((i) => i.completedAt!)
+    .filter((date): date is Date => date !== null)
+    .sort((a, b) => new Date(a).getTime() - new Date(b).getTime())[0]
   
   const lastCompletion = completedItems
-    .map((i: { completedAt: Date }) => i.completedAt!)
-    .sort((a: Date, b: Date) => new Date(b).getTime() - new Date(a).getTime())[0]
+    .map((i) => i.completedAt!)
+    .filter((date): date is Date => date !== null)
+    .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0]
 
   const startDate = new Date(user.checklist.createdAt)
   const endDate = new Date(lastCompletion)
@@ -140,8 +142,9 @@ export async function getAverageCompletionTimeByRole() {
     if (completedItems.length === 0) continue
 
     const lastCompletion = completedItems
-      .map((i: { completedAt: Date }) => i.completedAt!)
-      .sort((a: Date, b: Date) => new Date(b).getTime() - new Date(a).getTime())[0]
+      .map((i) => i.completedAt!)
+      .filter((date): date is Date => date !== null)
+      .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0]
 
     const startDate = new Date(user.checklist.createdAt)
     const endDate = new Date(lastCompletion)
