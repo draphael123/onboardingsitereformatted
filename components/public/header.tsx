@@ -16,7 +16,6 @@ const navItems = [
   { href: "/organization", label: "Organization Chart" },
   { href: "/faqs", label: "FAQs" },
   { href: "/glossary", label: "Glossary" },
-  { href: "/docs", label: "Resources" },
 ]
 
 export function PublicHeader() {
