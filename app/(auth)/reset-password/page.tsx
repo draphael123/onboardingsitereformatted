@@ -45,7 +45,7 @@ function ResetPasswordContent() {
     if (password !== confirmPassword) {
       toast({
         variant: "destructive",
-        title: "Passwords don't match",
+        title: "Passwords don&apos;t match",
         description: "Please make sure your passwords match.",
       })
       return

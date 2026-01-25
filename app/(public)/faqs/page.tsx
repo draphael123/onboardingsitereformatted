@@ -83,7 +83,7 @@ const defaultFaqs = [
   {
     id: "12",
     question: "How do I reset my password?",
-    answer: "Click 'Forgot Password' on the login page and enter your email address. You'll receive a password reset link within a few minutes. If you don't see the email, check your spam folder or contact support.",
+    answer: "Click &apos;Forgot Password&apos; on the login page and enter your email address. You&apos;ll receive a password reset link within a few minutes. If you don&apos;t see the email, check your spam folder or contact support.",
     category: "Support",
   },
   {

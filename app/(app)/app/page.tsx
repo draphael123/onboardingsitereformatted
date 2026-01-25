@@ -64,11 +64,11 @@ export default async function DashboardPage() {
   
   // Get motivational message based on progress
   const getMotivationalMessage = () => {
-    if (progress.percentage === 100) return "🎉 Amazing! You've completed all tasks!"
+    if (progress.percentage === 100) return "🎉 Amazing! You&apos;ve completed all tasks!"
     if (progress.percentage >= 75) return "🔥 Almost there! Keep up the momentum!"
-    if (progress.percentage >= 50) return "💪 Halfway done! You're doing great!"
+    if (progress.percentage >= 50) return "💪 Halfway done! You&apos;re doing great!"
     if (progress.percentage >= 25) return "🚀 Great start! Keep going!"
-    return "✨ Let's begin your onboarding journey!"
+    return "✨ Let&apos;s begin your onboarding journey!"
   }
 
   return (
@@ -287,7 +287,7 @@ export default async function DashboardPage() {
             <p className="text-muted-foreground">
               {progress.percentage === 100
                 ? "Review your completed checklist anytime."
-                : `You're ${progress.percentage}% through your onboarding. Keep up the great work!`}
+                : `You&apos;re ${progress.percentage}% through your onboarding. Keep up the great work!`}
             </p>
           </div>
           <Button asChild size="lg" className="group">
@@ -311,7 +311,7 @@ export default async function DashboardPage() {
               Welcome back, {session.user.name?.split(" ")[0] || "there"}!
             </h1>
             <p className="text-muted-foreground mt-1">
-              ✨ Let's begin your onboarding journey!
+              ✨ Let&apos;s begin your onboarding journey!
             </p>
           </div>
         </div>

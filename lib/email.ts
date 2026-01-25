@@ -59,7 +59,7 @@ export async function sendWelcomeEmail({ to, name, role }: WelcomeEmailData): Pr
                       Hi <strong>${name}</strong>,
                     </p>
                     <p style="margin: 0 0 20px; font-size: 16px; line-height: 24px; color: #374151;">
-                      Welcome to the Fountain team! We're excited to have you join us as a <strong>${roleName}</strong>.
+                      Welcome to the Fountain team! We&apos;re excited to have you join us as a <strong>${roleName}</strong>.
                     </p>
                     <p style="margin: 0 0 20px; font-size: 16px; line-height: 24px; color: #374151;">
                       Your account is pending admin approval. Once approved, you'll receive another email and can access your personalized onboarding checklist.

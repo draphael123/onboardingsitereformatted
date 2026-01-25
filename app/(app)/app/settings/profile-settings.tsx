@@ -75,7 +75,7 @@ export function ProfileSettings({ user }: ProfileSettingsProps) {
     if (newPassword !== confirmPassword) {
       toast({
         variant: "destructive",
-        title: "Passwords don't match",
+        title: "Passwords don&apos;t match",
         description: "Please make sure your new passwords match.",
       })
       return

@@ -155,7 +155,7 @@ const reviews = [
   },
   {
     name: "Matt",
-    review: "Everyone is very helpful. Super easy. Super safe. Now at 40 years old, I feel like I'm 24 again! Doron and his staff are the best! Highly recommend.",
+    review: "Everyone is very helpful. Super easy. Super safe. Now at 40 years old, I feel like I&apos;m 24 again! Doron and his staff are the best! Highly recommend.",
   },
   {
     name: "Jose",
@@ -175,7 +175,7 @@ const reviews = [
   },
   {
     name: "Jason",
-    review: "The process is super easy. All parts of the process from bloodwork to shipping are fast and the results are definitely worth it. I'm sleeping better, working out more, lost weight and overall much more energy. Couldn't be happier.",
+    review: "The process is super easy. All parts of the process from bloodwork to shipping are fast and the results are definitely worth it. I&apos;m sleeping better, working out more, lost weight and overall much more energy. Couldn&apos;t be happier.",
   },
   {
     name: "P.",
