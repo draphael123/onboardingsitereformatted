@@ -23,7 +23,9 @@ import {
   MessageSquare,
   CreditCard,
   Stethoscope,
-  Building2
+  Building2,
+  Hash,
+  Activity
 } from "lucide-react"
 
 const tools = [
@@ -47,6 +49,20 @@ const tools = [
     url: "https://gusto.com",
     icon: CreditCard,
     color: "from-emerald-500 to-emerald-600",
+  },
+  {
+    name: "Slack",
+    description: "Team communication and collaboration",
+    url: "https://app.slack.com/client/T013TB68ABD/C013RPA089K",
+    icon: Hash,
+    color: "from-purple-500 to-pink-500",
+  },
+  {
+    name: "Akute",
+    description: "Healthcare platform and patient management",
+    url: "https://app.akutehealth.com/login",
+    icon: Activity,
+    color: "from-cyan-500 to-blue-500",
   },
 ]
 
