@@ -12,6 +12,8 @@ import {
   TrendingUp
 } from "lucide-react"
 
+export const dynamic = 'force-dynamic'
+
 async function getDashboardStats() {
   const [userCount, templateCount, docCount, faqCount, roleStats] = await Promise.all([
     db.user.count(),

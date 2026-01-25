@@ -2,6 +2,8 @@ import { db } from "@/lib/db"
 import { TemplatesManager } from "./templates-manager"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
+export const dynamic = 'force-dynamic'
+
 async function getTemplates() {
   return db.roleTemplate.findMany({
     include: {

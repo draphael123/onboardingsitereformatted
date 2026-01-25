@@ -2,6 +2,8 @@ import { db } from "@/lib/db"
 import { ContentManager } from "./content-manager"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
+export const dynamic = 'force-dynamic'
+
 async function getContent() {
   const [docs, faqs] = await Promise.all([
     db.publicDoc.findMany({ orderBy: [{ category: "asc" }, { order: "asc" }] }),

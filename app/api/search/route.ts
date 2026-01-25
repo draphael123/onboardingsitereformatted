@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { globalSearch } from "@/lib/search"
 import { auth } from "@/lib/auth"
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   try {
     const session = await auth()

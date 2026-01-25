@@ -13,6 +13,8 @@ import {
 import { identifyAtRiskUsers, forecastCompletions, getComparativeAnalytics } from "@/lib/insights"
 import { getAverageCompletionTimeByRole, getBottleneckTasks, getCompletionTrends } from "@/lib/analytics"
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: "Insights & Analytics | Admin",
   description: "Advanced analytics and insights for onboarding",

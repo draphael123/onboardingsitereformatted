@@ -3,6 +3,8 @@ import { db } from "@/lib/db"
 import { requireAdmin } from "@/lib/auth"
 import { UsersTable } from "./users-table"
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: "Manage Users | Admin",
   description: "Manage team members and their onboarding progress",

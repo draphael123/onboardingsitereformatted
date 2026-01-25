@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
 import { signIn, useSession, getSession } from "next-auth/react"
@@ -13,7 +13,7 @@ import { FountainLogoIcon } from "@/components/ui/fountain-logo"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
 import { Loader2, ArrowLeft } from "lucide-react"
 
-export default function LoginPage() {
+function LoginForm() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -192,5 +192,35 @@ export default function LoginPage() {
         </p>
       </footer>
     </div>
+  )
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex flex-col gradient-bg hero-pattern">
+        <header className="container px-4 py-6 flex items-center justify-between">
+          <Link 
+            href="/" 
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </Link>
+          <ThemeToggle />
+        </header>
+        <main className="flex-1 flex items-center justify-center px-4 py-12">
+          <Card className="w-full max-w-md shadow-xl">
+            <CardContent className="pt-6">
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+              </div>
+            </CardContent>
+          </Card>
+        </main>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   )
 }
