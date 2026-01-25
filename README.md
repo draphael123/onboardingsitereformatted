@@ -153,7 +153,19 @@ In Vercel project settings, add:
 DATABASE_URL=your-database-connection-string
 AUTH_SECRET=generate-a-secure-secret
 NEXTAUTH_URL=https://your-domain.vercel.app
+
+# Email Configuration (Resend)
+RESEND_API_KEY=re_your_api_key_here
+EMAIL_FROM=Fountain <onboarding@yourdomain.com>
 ```
+
+**Email Setup:**
+1. Create a free account at [Resend](https://resend.com)
+2. Get your API key from [API Keys](https://resend.com/api-keys)
+3. Add `RESEND_API_KEY` to Vercel environment variables
+4. Configure `EMAIL_FROM` with your verified domain (or use `onboarding@resend.dev` for testing)
+
+See `EMAIL_SETUP.md` for detailed email configuration instructions.
 
 ### 4. Deploy
 
