@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { signIn } from "next-auth/react"
+import { signIn, useSession, getSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -18,7 +18,20 @@ export default function LoginPage() {
   const [password, setPassword] = useState("")
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const { data: session } = useSession()
   const { toast } = useToast()
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (session?.user) {
+      if (session.user.role === "ADMIN") {
+        router.push("/admin")
+      } else {
+        router.push("/app")
+      }
+    }
+  }, [session, router])
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -44,11 +57,34 @@ export default function LoginPage() {
           title: "Welcome back!",
           description: "Redirecting to your dashboard...",
         })
+        
+        // Get callback URL or determine redirect based on role
+        const callbackUrl = searchParams.get("callbackUrl")
+        
         // Small delay to ensure session is set, then redirect
-        setTimeout(() => {
-          router.push("/app")
-          router.refresh()
-        }, 100)
+        setTimeout(async () => {
+          try {
+            // Get session to check user role
+            const session = await getSession()
+            
+            if (callbackUrl) {
+              // Redirect to the originally requested page
+              router.push(callbackUrl)
+            } else if (session?.user?.role === "ADMIN") {
+              // Redirect admins to admin dashboard
+              router.push("/admin")
+            } else {
+              // Redirect regular users to app dashboard
+              router.push("/app")
+            }
+            router.refresh()
+          } catch (error) {
+            console.error("Error getting session:", error)
+            // Fallback: redirect to app (middleware will handle admin redirect if needed)
+            router.push(callbackUrl || "/app")
+            router.refresh()
+          }
+        }, 300)
       }
     } catch {
       toast({
