@@ -3,6 +3,8 @@
 import { revalidatePath } from "next/cache"
 import { db } from "@/lib/db"
 import { auth } from "@/lib/auth"
+import { trackEvent } from "@/lib/analytics"
+import { cache, CacheKeys } from "@/lib/cache"
 import type { ItemStatus } from "@prisma/client"
 
 export async function updateItemStatus(itemId: string, status: ItemStatus) {
@@ -40,6 +42,23 @@ export async function updateItemStatus(itemId: string, status: ItemStatus) {
         completedAt: status === "COMPLETE" ? new Date() : null,
       },
     })
+
+    // Track analytics
+    if (status === "COMPLETE") {
+      await trackEvent("task_complete", session.user.id, {
+        itemId,
+        itemTitle: item.title,
+      })
+    } else if (status === "IN_PROGRESS") {
+      await trackEvent("task_start", session.user.id, {
+        itemId,
+        itemTitle: item.title,
+      })
+    }
+
+    // Clear cache
+    cache.delete(CacheKeys.userChecklist(session.user.id))
+    cache.delete(CacheKeys.userProgress(session.user.id))
 
     revalidatePath("/app")
     revalidatePath("/app/checklist")

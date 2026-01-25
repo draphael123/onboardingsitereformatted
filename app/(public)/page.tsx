@@ -22,7 +22,8 @@ import {
   FileText,
   MessageSquare,
   CreditCard,
-  Stethoscope
+  Stethoscope,
+  Building2
 } from "lucide-react"
 
 const tools = [
@@ -311,6 +312,15 @@ export default function HomePage() {
               <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
                 Find the right person to help you with your questions and concerns.
               </p>
+              <div className="mt-6">
+                <Button variant="outline" asChild className="group">
+                  <Link href="/organization">
+                    <Building2 className="mr-2 h-4 w-4" />
+                    View Organization Chart
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+              </div>
             </div>
           </ScrollReveal>
           <ScrollReveal animation="fade-in" delay={100}>

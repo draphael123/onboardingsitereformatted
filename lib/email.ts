@@ -333,6 +333,64 @@ export async function sendContactEmail(data: ContactEmailData): Promise<EmailRes
 }
 
 // ============================================
+// Contact Form Confirmation Email
+// ============================================
+
+export async function sendContactConfirmationEmail({ to, name, subject }: { to: string; name: string; subject: string }): Promise<EmailResult> {
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head><meta charset="utf-8"></head>
+      <body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #f4f4f5;">
+        <table role="presentation" style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <td align="center" style="padding: 40px 0;">
+              <table role="presentation" style="width: 600px; max-width: 100%; background-color: #ffffff; border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                <tr>
+                  <td style="padding: 40px 40px 20px; text-align: center; background: linear-gradient(135deg, #14b8a6, #3b82f6); border-radius: 12px 12px 0 0;">
+                    <h1 style="margin: 0; color: #ffffff; font-size: 28px;">Message Received! ✉️</h1>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 40px;">
+                    <p style="margin: 0 0 20px; font-size: 16px; color: #374151;">Hi <strong>${name}</strong>,</p>
+                    <p style="margin: 0 0 20px; font-size: 16px; color: #374151;">
+                      Thank you for contacting Fountain Vitality. We&apos;ve received your message regarding:
+                    </p>
+                    <div style="background-color: #f9fafb; border-left: 4px solid #14b8a6; padding: 16px; margin: 20px 0; border-radius: 4px;">
+                      <p style="margin: 0; font-size: 16px; font-weight: 600; color: #374151;">${subject}</p>
+                    </div>
+                    <p style="margin: 20px 0; font-size: 16px; color: #374151;">
+                      Our team will review your message and get back to you within 24 hours. If your inquiry is urgent, please call our support line.
+                    </p>
+                    <p style="margin: 20px 0 0; font-size: 14px; color: #6b7280;">
+                      Best regards,<br>
+                      The Fountain Vitality Team
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 30px 40px; background-color: #f9fafb; border-radius: 0 0 12px 12px; text-align: center;">
+                    <p style="margin: 0; font-size: 14px; color: #6b7280;">Fountain Vitality Inc.</p>
+                    <p style="margin: 5px 0 0; font-size: 12px; color: #9ca3af;">2064 Park St, Jacksonville, FL 32204</p>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+    </html>
+  `
+
+  return sendEmail({
+    to,
+    subject: 'We received your message - Fountain Vitality',
+    html,
+  })
+}
+
+// ============================================
 // Core Email Sending Function
 // ============================================
 

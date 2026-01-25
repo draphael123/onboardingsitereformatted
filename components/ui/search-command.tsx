@@ -84,6 +84,10 @@ export function SearchCommand({ isAdmin = false, isAuthenticated = false }: Sear
               <FileText className="mr-2 h-4 w-4" />
               About Us
             </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => router.push("/organization"))}>
+              <Users className="mr-2 h-4 w-4" />
+              Organization Chart
+            </CommandItem>
             <CommandItem onSelect={() => runCommand(() => router.push("/faqs"))}>
               <HelpCircle className="mr-2 h-4 w-4" />
               FAQs
@@ -110,6 +114,10 @@ export function SearchCommand({ isAdmin = false, isAuthenticated = false }: Sear
                 <CommandItem onSelect={() => runCommand(() => router.push("/app/checklist"))}>
                   <CheckSquare className="mr-2 h-4 w-4" />
                   My Checklist
+                </CommandItem>
+                <CommandItem onSelect={() => runCommand(() => router.push("/app/directory"))}>
+                  <Users className="mr-2 h-4 w-4" />
+                  Employee Directory
                 </CommandItem>
                 <CommandItem onSelect={() => runCommand(() => router.push("/app/settings"))}>
                   <Settings className="mr-2 h-4 w-4" />

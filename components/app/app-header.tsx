@@ -25,7 +25,8 @@ import {
   Settings,
   Menu,
   X,
-  User
+  User,
+  Users
 } from "lucide-react"
 import { useState } from "react"
 import type { Role, NotificationType } from "@prisma/client"
@@ -53,6 +54,7 @@ interface AppHeaderProps {
 const navItems = [
   { href: "/app", label: "Dashboard", icon: LayoutDashboard },
   { href: "/app/checklist", label: "Checklist", icon: CheckSquare },
+  { href: "/app/directory", label: "Directory", icon: Users },
   { href: "/app/settings", label: "Settings", icon: Settings },
 ]
 
@@ -96,6 +98,19 @@ export function AppHeader({ user, notifications = [], unreadCount = 0 }: AppHead
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Directory Button - Prominent */}
+          <Button
+            asChild
+            variant="outline"
+            size="sm"
+            className="hidden md:flex gap-2"
+          >
+            <Link href="/app/directory">
+              <Users className="h-4 w-4" />
+              Directory
+            </Link>
+          </Button>
+
           {/* Search */}
           <div className="hidden md:flex">
             <SearchCommand isAuthenticated isAdmin={user.role === "ADMIN"} />

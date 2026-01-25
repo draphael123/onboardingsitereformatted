@@ -3,6 +3,9 @@ import { Outfit, Playfair_Display } from "next/font/google"
 import "./globals.css"
 import { Toaster } from "@/components/ui/toaster"
 import { ThemeProvider } from "@/components/providers/theme-provider"
+import { CommandPaletteProvider } from "@/components/providers/command-palette-provider"
+import { PWAInstaller } from "@/components/pwa-installer"
+import { ServiceWorkerRegistration } from "./sw-register"
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -36,6 +39,9 @@ export default function RootLayout({
         >
           {children}
           <Toaster />
+          <CommandPaletteProvider />
+          <PWAInstaller />
+          <ServiceWorkerRegistration />
         </ThemeProvider>
       </body>
     </html>

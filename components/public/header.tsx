@@ -13,9 +13,11 @@ const navItems = [
   { href: "/", label: "Home" },
   { href: "/programs", label: "Programs" },
   { href: "/about", label: "About Us" },
+  { href: "/organization", label: "Organization Chart" },
   { href: "/faqs", label: "FAQs" },
   { href: "/glossary", label: "Glossary" },
   { href: "/docs", label: "Resources" },
+  { href: "/contact", label: "Contact" },
 ]
 
 export function PublicHeader() {

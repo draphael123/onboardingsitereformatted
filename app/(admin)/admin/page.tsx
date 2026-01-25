@@ -157,6 +157,12 @@ export default async function AdminDashboardPage() {
               Manage Content
             </Link>
           </Button>
+          <Button variant="outline" asChild>
+            <Link href="/admin/analytics/insights">
+              <TrendingUp className="mr-2 h-4 w-4" />
+              View Insights
+            </Link>
+          </Button>
         </CardContent>
       </Card>
     </div>

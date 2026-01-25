@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth"
 import { redirect } from "next/navigation"
 import { AppHeader } from "@/components/app/app-header"
+import { KeyboardShortcutsProvider } from "@/components/providers/keyboard-shortcuts-provider"
 import { db } from "@/lib/db"
 
 export default async function AppLayout({
@@ -50,6 +51,7 @@ export default async function AppLayout({
         unreadCount={unreadCount}
       />
       <main className="flex-1 container py-8 px-4 md:px-6">{children}</main>
+      <KeyboardShortcutsProvider />
     </div>
   )
 }
