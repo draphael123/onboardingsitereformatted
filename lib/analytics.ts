@@ -11,6 +11,7 @@ export type AnalyticsEventType =
   | "search"
   | "user_created"
   | "template_synced"
+  | "contact_form_submit"
 
 export interface AnalyticsMetadata {
   [key: string]: any
