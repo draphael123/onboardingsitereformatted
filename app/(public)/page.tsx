@@ -411,7 +411,6 @@ export default function HomePage() {
         </div>
       </section>
 
->>>>>>> b8d47b4 (Add staff directory, contact list, SEO improvements, UX enhancements, and export functionality)
       {/* Onboarding CTA Section */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-fountain-500/10 via-ocean-500/10 to-coral-400/5">
         <div className="container px-4 md:px-6">
