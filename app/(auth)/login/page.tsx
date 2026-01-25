@@ -3,7 +3,7 @@
 import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import Link from "next/link"
-import { signIn, useSession, getSession } from "next-auth/react"
+import { signIn, getSession } from "next-auth/react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -19,19 +19,9 @@ function LoginForm() {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { data: session } = useSession()
   const { toast } = useToast()
 
-  // Redirect if already logged in
-  useEffect(() => {
-    if (session?.user) {
-      if (session.user.role === "ADMIN") {
-        router.push("/admin")
-      } else {
-        router.push("/app")
-      }
-    }
-  }, [session, router])
+  // Note: Middleware handles redirecting already-logged-in users away from login page
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
