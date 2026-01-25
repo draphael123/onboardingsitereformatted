@@ -33,11 +33,6 @@ export function PublicFooter() {
                   Programs
                 </Link>
               </li>
-              <li>
-                <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Contact
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -67,11 +62,6 @@ export function PublicFooter() {
           <div>
             <h3 className="font-semibold mb-4">Support</h3>
             <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Contact Us
-                </Link>
-              </li>
               <li>
                 <Link href="/login" className="text-muted-foreground hover:text-foreground transition-colors">
                   Sign In

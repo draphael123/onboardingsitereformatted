@@ -17,7 +17,6 @@ const navItems = [
   { href: "/faqs", label: "FAQs" },
   { href: "/glossary", label: "Glossary" },
   { href: "/docs", label: "Resources" },
-  { href: "/contact", label: "Contact" },
 ]
 
 export function PublicHeader() {

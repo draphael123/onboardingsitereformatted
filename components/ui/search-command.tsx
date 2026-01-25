@@ -96,10 +96,6 @@ export function SearchCommand({ isAdmin = false, isAuthenticated = false }: Sear
               <FileText className="mr-2 h-4 w-4" />
               Resources
             </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push("/contact"))}>
-              <Mail className="mr-2 h-4 w-4" />
-              Contact
-            </CommandItem>
           </CommandGroup>
 
           {/* Authenticated Pages */}
