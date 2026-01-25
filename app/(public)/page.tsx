@@ -64,6 +64,13 @@ const tools = [
     icon: Activity,
     color: "from-cyan-500 to-blue-500",
   },
+  {
+    name: "Notion",
+    description: "All-in-one workspace for notes, docs, and collaboration",
+    url: "https://www.notion.com/",
+    icon: FileText,
+    color: "from-gray-700 to-gray-900",
+  },
 ]
 
 const documents = [
