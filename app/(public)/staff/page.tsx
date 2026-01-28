@@ -60,7 +60,6 @@ const staffData = [
   { name: "Skye Sauls", email: "skye.sauls@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
   { name: "Stefanie Vasquez", email: "stefanie.vasquez@fountain.net", teamType: "Clinical", supervisor: "Jessica Booker" },
   { name: "Summer Denny", email: "summer@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
-  { name: "Tammy Anderson", email: "tammy@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
   { name: "Tammy Hale", email: "tammy.hale@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden, Daniel Raphael" },
   { name: "Taya Cooley", email: "taya@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
   { name: "Terray Humphrey", email: "terray@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
