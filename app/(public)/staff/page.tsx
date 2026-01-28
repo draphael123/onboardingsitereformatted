@@ -11,8 +11,10 @@ import {
   Mail, 
   Building2,
   UserCheck,
-  X
+  X,
+  Download
 } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 
 // Staff directory data from CSV
@@ -139,6 +141,70 @@ export default function StaffDirectoryPage() {
     })
   }, [searchQuery, selectedTeamType, selectedSupervisor])
 
+  // Download filtered staff as CSV
+  const handleDownload = () => {
+    if (filteredStaff.length === 0) {
+      return
+    }
+
+    // Create CSV headers
+    const headers = ["Name", "Email", "Team Type", "Supervisor"]
+    
+    // Create CSV rows
+    const rows = filteredStaff.map((staff) => [
+      staff.name,
+      staff.email,
+      staff.teamType,
+      staff.supervisor,
+    ])
+
+    // Combine headers and rows
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row) => 
+        row.map((cell) => {
+          // Escape commas and quotes in CSV
+          const cellStr = String(cell || "")
+          if (cellStr.includes(",") || cellStr.includes('"') || cellStr.includes("\n")) {
+            return `"${cellStr.replace(/"/g, '""')}"`
+          }
+          return cellStr
+        }).join(",")
+      ),
+    ].join("\n")
+
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
+    const link = document.createElement("a")
+    const url = URL.createObjectURL(blob)
+    
+    // Generate filename with current date and filter info
+    const date = new Date().toISOString().split("T")[0]
+    let filename = `staff-directory-${date}`
+    
+    if (selectedTeamType !== "All") {
+      filename += `-${selectedTeamType.replace(/[^a-z0-9]/gi, "-").toLowerCase()}`
+    }
+    
+    if (selectedSupervisor !== "All") {
+      filename += `-${selectedSupervisor.replace(/[^a-z0-9]/gi, "-").toLowerCase()}`
+    }
+    
+    if (searchQuery.trim()) {
+      filename += `-search-${searchQuery.substring(0, 20).replace(/[^a-z0-9]/gi, "-").toLowerCase()}`
+    }
+    
+    filename += ".csv"
+    
+    link.setAttribute("href", url)
+    link.setAttribute("download", filename)
+    link.style.visibility = "hidden"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  }
+
   // Get stats
   const stats = useMemo(() => {
     const byTeam = staffData.reduce((acc, staff) => {
@@ -244,6 +310,15 @@ export default function StaffDirectoryPage() {
                 </SelectContent>
               </Select>
 
+              <Button
+                variant="outline"
+                onClick={handleDownload}
+                disabled={filteredStaff.length === 0}
+                className="gap-2"
+              >
+                <Download className="h-4 w-4" />
+                Download CSV
+              </Button>
               {(selectedTeamType !== "All" || selectedSupervisor !== "All" || searchQuery) && (
                 <button
                   onClick={() => {
