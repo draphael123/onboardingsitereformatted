@@ -74,7 +74,7 @@ const staffData = [
   { name: "Aryia Emrani", email: "aryia@fountain.net", teamType: "Marketing", supervisor: "Dan Morris" },
   { name: "Brandon Shrair", email: "brandon@fountaintrt.com", teamType: "Other", supervisor: "n/a" },
   { name: "Christen Vanderbilt", email: "Chirsten.Vanderbilt@fountain.net", teamType: "Marketing", supervisor: "Dan Morris" },
-  { name: "Dan Morris", email: "dan@fountain.net", teamType: "Other", supervisor: "Lindsay Burden" },
+  { name: "Dan Morris", email: "dan@fountain.net", teamType: "Other", supervisor: "Brandon Shrair" },
   { name: "Filip Piatkowski", email: "filip@fountaintrt.com", teamType: "Marketing", supervisor: "Dan Morris" },
   { name: "Jerome Francisco", email: "jerome.francisco@fountain.net", teamType: "Marketing", supervisor: "Aryia Emrani" },
   { name: "Jesse Aultman", email: "jesse.aultman@fountain.net", teamType: "Marketing", supervisor: "Dan Morris" },
