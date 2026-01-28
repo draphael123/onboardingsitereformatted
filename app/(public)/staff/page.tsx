@@ -31,7 +31,7 @@ const staffData = [
   { name: "Camryn Burden", email: "camryn@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
   { name: "Catherine Herrington", email: "catherine@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
   { name: "Daniel Fis", email: "daniel.fis@fountain.net", teamType: "Clinical", supervisor: "Camryn Burden" },
-  { name: "Daniel Raphael", email: "daniel@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden, Doron Stember" },
+  { name: "Daniel Raphael", email: "daniel@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
   { name: "Danielle Board", email: "danielle.board@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
   { name: "Deanna Maher", email: "deanna.maher@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
   { name: "Doron Stember", email: "doron@fountain.net", teamType: "Other", supervisor: "n/a" },
