@@ -11,7 +11,8 @@ import {
   Mail, 
   UserCog,
   Filter,
-  X
+  X,
+  Download
 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
@@ -62,6 +63,67 @@ export function DirectoryClient({ initialUsers }: DirectoryClientProps) {
     return filtered
   }, [initialUsers, searchQuery, roleFilter])
 
+  // Download filtered users as CSV
+  const handleDownload = () => {
+    if (filteredUsers.length === 0) {
+      return
+    }
+
+    // Create CSV headers
+    const headers = ["Name", "Email", "Role", "Department"]
+    
+    // Create CSV rows
+    const rows = filteredUsers.map((user) => [
+      user.name,
+      user.email,
+      user.roleLabel,
+      user.role,
+    ])
+
+    // Combine headers and rows
+    const csvContent = [
+      headers.join(","),
+      ...rows.map((row) => 
+        row.map((cell) => {
+          // Escape commas and quotes in CSV
+          const cellStr = String(cell || "")
+          if (cellStr.includes(",") || cellStr.includes('"') || cellStr.includes("\n")) {
+            return `"${cellStr.replace(/"/g, '""')}"`
+          }
+          return cellStr
+        }).join(",")
+      ),
+    ].join("\n")
+
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" })
+    const link = document.createElement("a")
+    const url = URL.createObjectURL(blob)
+    
+    // Generate filename with current date and filter info
+    const date = new Date().toISOString().split("T")[0]
+    let filename = `staff-directory-${date}`
+    
+    if (roleFilter !== "all") {
+      const roleName = filteredUsers[0]?.roleLabel || roleFilter
+      filename += `-${roleName.replace(/[^a-z0-9]/gi, "-").toLowerCase()}`
+    }
+    
+    if (searchQuery.trim()) {
+      filename += `-search-${searchQuery.substring(0, 20).replace(/[^a-z0-9]/gi, "-").toLowerCase()}`
+    }
+    
+    filename += ".csv"
+    
+    link.setAttribute("href", url)
+    link.setAttribute("download", filename)
+    link.style.visibility = "hidden"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    URL.revokeObjectURL(url)
+  }
+
   return (
     <Card>
       <CardContent className="pt-6">
@@ -93,6 +155,15 @@ export function DirectoryClient({ initialUsers }: DirectoryClientProps) {
               })}
             </SelectContent>
           </Select>
+          <Button
+            variant="outline"
+            onClick={handleDownload}
+            disabled={filteredUsers.length === 0}
+            className="gap-2"
+          >
+            <Download className="h-4 w-4" />
+            Download CSV
+          </Button>
           {(searchQuery || roleFilter !== "all") && (
             <Button
               variant="outline"
