@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils"
 // Staff directory data from CSV
 const staffData = [
   { name: "Alexis Foster-Horton", email: "alexis.foster-horton@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
+  { name: "Amanda Miranda", email: "amanda@fountain.net", teamType: "Clinical", supervisor: "Taya Cooley" },
   { name: "Ashley Escoe", email: "ashley.escoe@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
   { name: "Ashley Grout", email: "ashley.grout@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
   { name: "Ashley Gwinn", email: "ashley@fountain.net", teamType: "Clinical", supervisor: "Lindsay Burden" },
