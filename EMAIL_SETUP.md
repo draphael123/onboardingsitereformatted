@@ -201,3 +201,6 @@ NEXTAUTH_URL="http://localhost:3000"
 - Resend Support: support@resend.com
 - Check application logs for detailed error messages
 
+
+
+

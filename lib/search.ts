@@ -167,3 +167,6 @@ export async function quickSearch(query: string, userId?: string): Promise<Searc
   return results.slice(0, 8) // Limit to 8 results for command palette
 }
 
+
+
+

@@ -8,3 +8,6 @@ export function CommandPaletteProvider() {
   return <CommandPalette open={open} onOpenChange={setOpen} />
 }
 
+
+
+

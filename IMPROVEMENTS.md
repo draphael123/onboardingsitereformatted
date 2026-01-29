@@ -246,3 +246,6 @@ Potential future improvements:
 - Analytics events are stored in the database. Consider archiving old events.
 - Search is currently database-based. Consider Elasticsearch for large datasets.
 
+
+
+
